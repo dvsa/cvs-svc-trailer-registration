@@ -27,6 +27,7 @@ jspm_packages
 # Webpack directories
 .webpack
 .serverless
+build
 
 # env files
 *.env

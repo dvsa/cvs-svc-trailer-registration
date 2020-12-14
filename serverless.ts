@@ -6,8 +6,8 @@ const serverlessConfiguration: AWS = {
   custom: {
     webpack: {
       webpackConfig: './webpack.config.js',
-      includeModules: true
-    }
+      includeModules: true,
+    },
   },
   // Add the serverless-webpack plugin
   plugins: ['serverless-webpack'],
@@ -29,11 +29,11 @@ const serverlessConfiguration: AWS = {
           http: {
             method: 'get',
             path: 'hello',
-          }
-        }
-      ]
-    }
-  }
-}
+          },
+        },
+      ],
+    },
+  },
+};
 
 module.exports = serverlessConfiguration;

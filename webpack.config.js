@@ -44,11 +44,12 @@ module.exports = {
     ],
   },
   plugins: [
-    // new ForkTsCheckerWebpackPlugin({
-    //   eslint: true,
-    //   eslintOptions: {
-    //     cache: true
-    //   }
-    // })
+    new ForkTsCheckerWebpackPlugin({
+      typescript: true,
+      eslint: {
+        enabled: false,
+        files: './src/**/*.{ts,js}',
+      },
+    }),
   ],
 };

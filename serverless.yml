@@ -15,6 +15,7 @@ plugins:
   # - serverless-offline
 
 provider:
+  # profile: {env:AWS_PROVIDER}
   name: aws
   runtime: nodejs12.x
   apiGateway:
@@ -32,7 +33,7 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src/handler.hello
     events:
       - http:
           path: hello
