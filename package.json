@@ -9,8 +9,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run security && npm run audit",
-      "commit-msg": "npm run lint && npm run prettier && commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm run security && npm run audit && npm run lint && npm run prettier",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-push": "npm run build && npm run test:coverage"
     }
   },
