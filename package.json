@@ -15,6 +15,7 @@
     }
   },
   "scripts": {
+    "start": "SLS_DEBUG=* serverless offline",
     "test": "echo \"Error: no test specified\" && exit 1",
     "audit": "npm audit",
     "lint": "eslint . --ext js,ts --fix",
@@ -41,7 +42,9 @@
     "fork-ts-checker-webpack-plugin": "^6.0.6",
     "husky": "^4.3.6",
     "prettier": "^2.2.1",
+    "serverless": "^2.15.0",
     "serverless-dotenv-plugin": "^3.1.0",
+    "serverless-offline": "^6.8.0",
     "serverless-webpack": "^5.2.0",
     "ts-loader": "^8.0.10",
     "ts-node": "^9.0.0",
