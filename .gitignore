@@ -34,6 +34,7 @@ build
 
 # Coverage reports
 coverage
+.scannerwork
 
 # Source maps
 *.map
