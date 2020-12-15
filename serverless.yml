@@ -17,7 +17,7 @@ plugins:
   - serverless-offline
 
 provider:
-  profile: {env:AWS_PROVIDER}
+  profile: ${env:AWS_PROVIDER}
   name: aws
   runtime: nodejs12.x
   apiGateway:
