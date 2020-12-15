@@ -1,6 +1,6 @@
 {
   "name": "cvs-svc-trailer-registration",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "description": "A service to allow Trailer owners to apply for a registration mark for their trailer from DVLA. This will deliver the capability for DVSA to receive VRM so that thet can be printed on trailer MOT where it is available.",
   "main": "handler.js",
   "engines": {
@@ -28,7 +28,8 @@
     "compile": "npm run clean && tsc --noEmit -p .",
     "build": "npm run clean && VERSION=${npm_package_version} serverless webpack -o ./build",
     "sonar": "sonar-scanner",
-    "deploy": "echo 'run \"serveless deploy\" with production .env file - \".env.production\"'"
+    "deploy": "echo 'run \"serveless deploy\" with production .env file - \".env.production\"'",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "source-map-support": "^0.5.19"
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@semantic-release/changelog": "^5.0.1",
     "@serverless/typescript": "^2.12.0",
     "@types/aws-lambda": "^8.10.64",
     "@types/jest": "^26.0.19",
@@ -52,6 +54,7 @@
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
+    "semantic-release": "^17.3.0",
     "serverless": "^2.15.0",
     "serverless-dotenv-plugin": "^3.1.0",
     "serverless-offline": "^6.8.0",
@@ -71,7 +74,7 @@
   "homepage": "https://github.com/dvsa/cvs-svc-trailer-registration#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dvsa/cvs-svc-trailer-registration.git"
+    "url": "https://github.com/dvsa/cvs-svc-trailer-registration.git"
   },
   "keywords": [
     "DVLA",
