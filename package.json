@@ -22,6 +22,7 @@
     "test:coverage": "COVERAGE=true npm run test -- --coverage",
     "audit": "npm audit",
     "lint": "eslint . --ext js,ts --fix",
+    "lint:report": "npm run lint -- -f json -o coverage/eslint/eslint-report.json",
     "prettier": "prettier --write './**/*.{js,ts}'",
     "security": "git secrets --scan && git log -p | scanrepo",
     "clean": "rimraf ./build",
