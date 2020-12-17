@@ -21,9 +21,10 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
     },
   },
+  // TODO Reduce for multiple output
   functions: {
     hello: {
-      handler: 'handler.hello',
+      handler: 'src/handler.hello',
       events: [
         {
           http: {

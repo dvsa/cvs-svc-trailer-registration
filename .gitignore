@@ -28,6 +28,7 @@ jspm_packages
 .webpack
 .serverless
 build
+*.zip
 
 # env files
 *.env*

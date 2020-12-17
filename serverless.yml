@@ -1,3 +1,4 @@
+# https://github.com/serverless/serverless/blob/master/docs/providers/aws/guide/functions.md
 service: cvs-svc-trailer-registration
 useDotenv: true
 
@@ -5,12 +6,14 @@ useDotenv: true
 package:
   individually: true
   exclude:
-    - node_modules/**/*
+    - node_modules/**
+    - build/**
   include:
-    handler.ts
+    - src/handler.ts
 
 
 plugins:
+  # https://github.com/serverless-heaven/serverless-webpack/tree/master/examples
   - serverless-webpack
   # - serverless-dynamodb-local
   # https://github.com/serverless-heaven/serverless-webpack#usage-with-serverless-offline
@@ -29,6 +32,8 @@ provider:
   # rename env.example to .env and uncomment
   # the following line. Also, make sure to not
   # commit your .env.
+  # We may want to use different config per stages/envs
+  # docs: https://github.com/serverless/serverless/blob/master/docs/providers/aws/guide/variables.md
   #
   environment:
     API_VERSION: ${env:VERSION}

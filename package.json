@@ -2,7 +2,7 @@
   "name": "cvs-svc-trailer-registration",
   "version": "0.0.0-development",
   "description": "A service to allow Trailer owners to apply for a registration mark for their trailer from DVLA. This will deliver the capability for DVSA to receive VRM so that thet can be printed on trailer MOT where it is available.",
-  "main": "handler.js",
+  "main": "src/handler.ts",
   "engines": {
     "node": "12.x",
     "npm": "6.x"
@@ -21,6 +21,9 @@
     "test:unit": "jest",
     "test:unit:watch": "npm run test:unit -- --watch",
     "test:unit:coverage": "cross-env COVERAGE=true npm run test:unit -- --coverage",
+    "test:integration": "echo 'integration tests to be added'",
+    "test:integration:watch": "echo 'integration tests watch to be added'",
+    "test:integration:coverage": "echo 'integration tests coverage to be added'",
     "audit": "npm audit",
     "lint:analyse": "eslint . --ext js,ts --fix",
     "lint:report": "npm run lint:analyse -- -f json -o reports/eslint/eslint-report.json",
@@ -32,6 +35,10 @@
     "build:artefact": "cross-env VERSION=${npm_package_version} serverless webpack -o ./build",
     "build": "npm-run-all clean build:*",
     "sonar": "sonar-scanner",
+    "package:prepare": "cp -R build/hello/src/ '${ZIP_NAME}'",
+    "package:create": "zip '${ZIP_NAME}.zip' '${ZIP_NAME}'/*.js ",
+    "package:clean": "rimraf '${ZIP_NAME}'",
+    "package": "npm-run-all clean build package:*",
     "deploy": "echo 'run \"serveless deploy\" with production .env file - \".env.production\"'",
     "semantic-release": "semantic-release"
   },
