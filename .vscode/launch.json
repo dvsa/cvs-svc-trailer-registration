@@ -7,9 +7,10 @@
       "program": "${workspaceRoot}/node_modules/serverless/bin/serverless.js",
       "args": [
         "offline",
+        "start",
+        "--noPrependStageInUrl",
         "--noTimeout",
         "--dontPrintOutput",
-        "--stage=local",
         "--httpPort=4000",
         "--lambdaPort=4001"
       ],
@@ -21,7 +22,7 @@
         "${workspaceFolder}/.webpack/**/*.js"
       ],
       "protocol": "inspector",
-      "runtimeExecutable": "node",
+      "runtimeExecutable": "/usr/local/bin/node",
       "env": {
         // Here we set some environment vars that should be set locally.
         // They can and will overwrite the ones coming from your serverless.yml
@@ -42,16 +43,16 @@
         "program": "${workspaceRoot}\\node_modules\\.bin\\jest",
       }
     },
-      {
-          "name": "Jest Debug opened file",
-          "type": "node",
-          "request": "launch",
-          "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/jest",
-          "args": ["${fileBasenameNoExtension}"],
-          "cwd": "${workspaceRoot}",
-          "protocol": "inspector",
-          "console": "integratedTerminal",
-          "internalConsoleOptions": "neverOpen"
-        },
+    {
+      "name": "Jest Debug opened file",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/jest",
+      "args": ["${fileBasenameNoExtension}"],
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
   ]
 }

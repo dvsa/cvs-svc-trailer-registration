@@ -39,12 +39,18 @@ provider:
     API_VERSION: ${env:VERSION}
 
 functions:
-  hello:
-    handler: src/handler.hello
+  # Use express routing so we don't rely on APIG and leverage express API
+  app:
+    handler: src/index.handler
     events:
-      - http:
-          path: hello
-          method: get
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+  # Can also define specific routes and pattern matching, see below as example
+  # getHello:
+  #   handler: index.handler
+  #   events:
+  #     - http: 'GET /hello'
+
 custom:
     webpack:
       # webpackConfig: 'webpack.config.js

@@ -15,7 +15,7 @@
     }
   },
   "scripts": {
-    "start": "cross-env VERSION=${npm_package_version} serverless offline",
+    "start": "cross-env VERSION=${npm_package_version} serverless offline start --noPrependStageInUrl",
     "dev": "cross-env SLS_DEBUG=* VERSION=${npm_package_version} concurrently \"npm start\" \"npm run test:unit:watch\"",
     "test": "npm run test:unit",
     "test:unit": "jest",
@@ -35,7 +35,7 @@
     "build:artefact": "cross-env VERSION=${npm_package_version} serverless webpack -o ./build",
     "build": "npm-run-all clean build:*",
     "sonar": "sonar-scanner",
-    "package:prepare": "cp -R build/hello/src/ '${ZIP_NAME}'",
+    "package:prepare": "cp -R build/app/src/ '${ZIP_NAME}'",
     "package:create": "zip '${ZIP_NAME}.zip' '${ZIP_NAME}'/*.js ",
     "package:clean": "rimraf '${ZIP_NAME}'",
     "package": "npm-run-all clean build package:*",
@@ -43,6 +43,8 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
+    "express": "^4.17.1",
+    "serverless-http": "^2.6.0",
     "source-map-support": "^0.5.19"
   },
   "devDependencies": {
@@ -52,7 +54,7 @@
     "@serverless/typescript": "^2.12.0",
     "@types/aws-lambda": "^8.10.64",
     "@types/jest": "^26.0.19",
-    "@types/node": "^14.14.6",
+    "@types/node": "^14.14.14",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",
     "commitlint-plugin-function-rules": "^1.1.20",
@@ -72,6 +74,7 @@
     "serverless-dotenv-plugin": "^3.1.0",
     "serverless-offline": "^6.8.0",
     "serverless-webpack": "^5.2.0",
+    "supertest": "^6.0.1",
     "ts-jest": "^26.4.4",
     "ts-loader": "^8.0.10",
     "ts-node": "^9.0.0",

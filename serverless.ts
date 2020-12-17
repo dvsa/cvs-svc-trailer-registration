@@ -21,20 +21,9 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
     },
   },
-  // TODO Reduce for multiple output
-  functions: {
-    hello: {
-      handler: 'src/handler.hello',
-      events: [
-        {
-          http: {
-            method: 'get',
-            path: 'hello',
-          },
-        },
-      ],
-    },
-  },
+  // TODO Reduce for multiple output if we need multiple outputs, functions in handler instead of serverless.yml config however this is handled by slsw.lib.entries
+  // Please see doc: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/serverless/plugins/aws/provider/awsProvider.d.ts and serverless.yml
+  functions: {},
 };
 
 module.exports = serverlessConfiguration;
