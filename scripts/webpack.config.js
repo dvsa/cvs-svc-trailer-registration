@@ -3,10 +3,14 @@ const slsw = require('serverless-webpack');
 const nodeExternals = require('webpack-node-externals');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
+const { API_VERSION, NODE_ENV } = process.env;
+
+console.log(`\nRunning version: '${API_VERSION}' of API in mode: ${NODE_ENV}\n\n`);
+
 // https://github.com/serverless-heaven/serverless-webpack/tree/master/examples
 module.exports = (async () => {
   return {
-    context: __dirname,
+    context: path.join(__dirname, '..'),
     mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
     // TODO Reduce for multiple output
     entry: slsw.lib.entries,
@@ -19,7 +23,7 @@ module.exports = (async () => {
     },
     output: {
       libraryTarget: 'commonjs',
-      path: path.join(__dirname, '.webpack'),
+      path: path.join(__dirname, '..', '.webpack'),
       filename: '[name].js',
     },
     optimization: {

@@ -10,14 +10,14 @@ module.exports = {
     // level: disabled to use our own rule with commitlint-plugin-function-rules plugin
     'scope-case': [0],
     'function-rules/scope-empty': [
-      1,
+      2,
       'always',
       (parsed) => {
         // type(scope?): subject
         if (parsed?.scope && parsed.scope.match(/^CVSB-\d+$/) !== null) {
           return [true];
         } else {
-          return [false, 'scope must have the following format: (CVSB-XXXX) where XXXX is a number'];
+          return [false, `scope must have the following format: (CVSB-XXXX) where 'XXXX' is a ticket number`];
         }
       },
     ],
