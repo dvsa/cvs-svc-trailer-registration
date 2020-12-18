@@ -11,5 +11,4 @@ console.log(`\nRunning version: '${API_VERSION}' of API in mode: ${NODE_ENV}\n\n
 const handler = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyStructuredResultV2> =>
   await serverless(app)(event, context);
 
-
 export { handler };

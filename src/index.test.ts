@@ -1,7 +1,6 @@
 import { APIGatewayEvent, Context } from 'aws-lambda';
 import { handler } from './';
 
-
 describe('Entry', () => {
   describe('Handler', () => {
     it('should call the express wrapper', async () => {
@@ -13,8 +12,5 @@ describe('Entry', () => {
       expect(response.statusCode).toEqual(200);
       expect(typeof response.body).toBe('string');
     });
-  })
-
-})
-
-
+  });
+});
