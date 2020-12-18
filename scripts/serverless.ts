@@ -22,7 +22,19 @@ const serverlessConfiguration: AWS = {
   },
   // TODO Reduce for multiple output if we need multiple outputs, functions in handler instead of serverless.yml config however this is handled by slsw.lib.entries in webpack.config.js for us
   // Please see doc: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/serverless/plugins/aws/provider/awsProvider.d.ts and serverless.yml
-  functions: {},
+  functions: {
+    app: {
+      handler: 'src/index.handler',
+      events: [
+        {
+          http: {
+            method: 'ANY',
+            path: '{proxy+}',
+          },
+        },
+      ],
+    },
+  },
 };
 
 module.exports = serverlessConfiguration;

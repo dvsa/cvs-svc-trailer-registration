@@ -8,15 +8,17 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "target": "es2017",
-    "outDir": "build",
+    "outDir": "./.build",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
-  "include": ["./src/**/*.ts"],
+  "include": ["./src/**/*.ts", "index.test.ts"],
   "exclude": [
     "node_modules/**/*",
     ".serverless/**/*",
     ".webpack/**/*",
+    ".build/**/*",
+    ".artifact/**/*",
     "_warmup/**/*",
     ".vscode/**/*",
     "reports/**/*"

@@ -27,7 +27,8 @@ jspm_packages
 # Webpack directories
 .webpack
 .serverless
-build
+.build
+.artifact
 *.zip
 
 # env files

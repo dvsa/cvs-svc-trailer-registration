@@ -1,12 +1,20 @@
 # cvs-svc-trailer-registration
 
 A service to allow Trailer owners to apply for a registration mark for their trailer from DVLA. This will deliver the capability for DVSA to receive VRM so that that can be printed on trailer MOT where it is available.
+</br>
+</br>
+</br>
 
 ## Architecture
 
 The Target architecture will see DVSA receive trailer information and update this onto the vehicles Technical Record. This is via an asynchronous event pattern. i.e. the message is received from DVLA and acknowledged, and then asynchronously processed into CVS.
 
-![DVLA Trailer target architecture diagram](./docs/DVLATrailerTarget.png)
+<p align="center">
+  <img width="" src="./docs/DVLATrailerTarget.png" alt="DVLA Trailer target architecture diagram">
+</p>
+</br>
+</br>
+</br>
 
 ## Dependencies
 
@@ -14,17 +22,21 @@ The project runs on node 12.x with typescript and serverless framework. For furt
 
 ## Running the project
 
-Once the dependencies are installed, you will be required to rename the `/config/env.example` file to `.env.local` as we use dotenv files for configuration. Further information about [variables](https://www.serverless.com/framework/docs/providers/aws/guide/variables/) and [environment variables](https://www.serverless.com/framework/docs/environment-variables/) with serverless.
+Once the dependencies are installed, you will be required to rename the `/config/env.example` file to `.env.local` as we use dotenv files for configuration for local local development for example. Further information about [variables](https://www.serverless.com/framework/docs/providers/aws/guide/variables/) and [environment variables](https://www.serverless.com/framework/docs/environment-variables/) with serverless.
 
 The application runs on port `:3001` by default when no stage is provided.
 
 ### Environments
 
-We use `NODE_ENV` environment variable to set multi-stage builds with the help of dotenv through npm scripts to load the relevant `.env.<NODE_ENV>` file from `./config` folder into the `serverless.yml` file as we don't rely on serverless for deployment.
+We use `NODE_ENV` environment variable to set multi-stage builds (region, stages) with the help of dotenv through npm scripts to load the relevant `.env.<NODE_ENV>` file from `./config` folder into the `serverless.yml` file as we don't rely on serverless for deployment.
+If no `NODE_ENV` value is provided when running the scripts, it will default its `NODE_ENV` value to 'development' with the `.env.development` config file.
 
-The following values can be provided:
+The defaulted values for 'stage' and 'region' are `'local'`. Please refer to the values provided in the `serverless.yml` file.
+
+The following values can be provided when running the scripts with `NODE_ENV`:
 
 ```ts
+// ./config/.env.<NODE_ENV> files
 'local'; // used for local development
 'development'; // used development staging should we wish to require external services
 'test'; // used during test scripts where local services, mocks can be used in conjonction
@@ -38,11 +50,11 @@ NODE_ENV=local serverless offline
 
 ```
 
-Please note that if no `NODE_ENV` variable is provided, it will default to `'development'` environment and use default values in the `serverless.yml` file.
-
 Further details about environment setup can be found in the provided documentation and `env.example` file.
 
 All secrets the secrets are will stored in `AWS Secrets Manager`.
+</br>
+</br>
 
 ### Scripts
 
@@ -52,15 +64,21 @@ The following scripts are available, for further information please refer to the
 - <b>dev</b>: `npm run dev` - _run in parallel the service and unit tests in_ `--watch` _mode with live reload_.
 - <b>test</b>: `npm t` - _execute the unit test suite_
 - <b>build</b>: `npm run build` - _bundle the project for production_
+  </br>
+  </br>
 
 ### Offline
 
 Serverless-offline with webpack is used to run the project locally. Please use `npm run dev` script to do so.
+</br>
+</br>
 
 ### Lambda locally
 
 Serverless can invoke lambda functions locally which provide a close experience to the real service if you decide not use the offline mode. `events` and `paths` can be found under `/local` folder.
 For further details using lambda locally please refer to the [serverless documentation](https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/).
+</br>
+</br>
 
 ### Debugging
 
@@ -74,22 +92,49 @@ For further information about debugging, please refer to the following documenta
 
 - [Debug process section](https://www.serverless.com/plugins/serverless-offline#usage-with-webpack)
 
+</br>
+</br>
+</br>
+
 ## Testing
+
+[json-serverless](https://github.com/pharindoko/json-serverless) has been added to the repository should we wish to mock external services during development.
+</br>
+</br>
+
+### Unit
 
 Jest is used for unit testing.
 Please refer to the [Jest documentation](https://jestjs.io/docs/en/getting-started) for further details.
+</br>
+</br>
 
-[json-serverless](https://github.com/pharindoko/json-serverless) has been added to the repository should we wish to mock external services during development.
+### Integration
+
+To be added
+</br>
+</br>
+</br>
 
 ## Infrastructure
 
 <Insert Design>
+</br>
+</br>
 
 ### Release
 
 To be added - semantic-release
 
+</br>
+</br>
+</br>
+
 ## Contributing
+
+To facilitate the standardisation of the code, a few helpers and tools have been adopted for this repository.
+</br>
+</br>
 
 ### External dependencies
 
@@ -113,7 +158,27 @@ TYPE(SCOPE?): subject
 
 ```
 
+</br>
+</br>
+
 ### Code standards
+
+</br>
+</br>
+
+#### Code structure
+
+Domain Drive Design diagram with Interfaces, Application, Domain layers and Infrastructure across the layers.
+
+<p align="center">
+  <img src="./docs/DDD_architecture.jpg" alt="Domain Drive Design diagram with Interfaces, Application, Domain layers and Infrastructure across the layers" >
+</p>
+
+Further reading: [E. Evans in its Domain Driven Design approach](http://dddsample.sourceforge.net/architecture.html) and [The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
+</br>
+</br>
+
+#### Toolings
 
 The code uses [eslint](https://eslint.org/docs/user-guide/getting-started), [typescript clean code standards](https://github.com/labs42io/clean-code-typescript) as well as sonarqube for static analysis.
 SonarQube is available locally, please follow the instructions below if you wish to run the service locally (brew is the preferred approach):
@@ -128,9 +193,3 @@ SonarQube is available locally, please follow the instructions below if you wish
   - Add sonar-scanner in environment variables in your \_profile file add the line: `export PATH=<PATH_TO_SONAR_SCANNER>/sonar-scanner-3.3.0.1492-macosx/bin:$PATH`
   - Start the SonarQube server: `cd <PATH_TO_SONARQUBE_SERVER>/bin/macosx-universal-64 ./sonar.sh start`
   - In the microservice folder run the command: `npm run sonar-scanner`
-
-Domain Drive Design diagram with Interfaces, Application, Domain layers and Infrastructure across the layers
-
-![Domain Drive Design diagram with Interfaces, Application, Domain layers and Infrastructure across the layers](./docs/DDD_architecture.jpg).
-
-Further reading: [E. Evans in its Domain Driven Design approach](http://dddsample.sourceforge.net/architecture.html) and [The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).

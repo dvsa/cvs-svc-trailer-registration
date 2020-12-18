@@ -14,7 +14,7 @@ module.exports = {
       'always',
       (parsed) => {
         // type(scope?): subject
-        if (parsed?.scope && parsed.scope.match(/^CVSB-\d+$/) !== null) {
+        if ((parsed?.scope && parsed.scope.match(/^CVSB-\d+$/) !== null) || parsed.scope === 'RELEASE') {
           return [true];
         } else {
           return [false, `scope must have the following format: (CVSB-XXXX) where 'XXXX' is a ticket number`];

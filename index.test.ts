@@ -1,5 +1,5 @@
 import { APIGatewayEvent, Context } from 'aws-lambda';
-import { handler } from './';
+import { handler } from './src';
 
 describe('Entry', () => {
   describe('Handler', () => {

@@ -15,20 +15,18 @@
         "--lambdaPort=4001"
       ],
       "sourceMaps": true,
-      "runtimeArgs": [
-        "--lazy"
-      ],
-      "outFiles": [
-        "${workspaceFolder}/.webpack/**/*.js"
-      ],
+      "runtimeArgs": ["--lazy"],
+      "outFiles": ["${workspaceFolder}/.webpack/**/*.js"],
       "protocol": "inspector",
       "runtimeExecutable": "/usr/local/bin/node",
       "env": {
+        "NODE_ENV": "local"
         // Here we set some environment vars that should be set locally.
         // They can and will overwrite the ones coming from your serverless.yml
+        // Please refer to the relevant .env files - local, development, etc...
       },
       "windows": {
-        "program": "${workspaceRoot}\\node_modules\\serverless\\bin\\serverless",
+        "program": "${workspaceRoot}\\node_modules\\serverless\\bin\\serverless"
       }
     },
     {
@@ -40,7 +38,13 @@
       "console": "integratedTerminal",
       "protocol": "inspector",
       "windows": {
-        "program": "${workspaceRoot}\\node_modules\\.bin\\jest",
+        "program": "${workspaceRoot}\\node_modules\\.bin\\jest"
+      },
+      "env": {
+        "NODE_ENV": "test"
+        // Here we set some environment vars that should be set locally.
+        // They can and will overwrite the ones coming from your serverless.yml
+        // Please refer to the relevant .env files - test for example...
       }
     },
     {
@@ -52,7 +56,13 @@
       "cwd": "${workspaceRoot}",
       "protocol": "inspector",
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
-    },
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        // "NODE_ENV": "test"
+        // Here we set some environment vars that should be set locally.
+        // They can and will overwrite the ones coming from your serverless.yml
+        // Please refer to the relevant .env files - test for example...
+      }
+    }
   ]
 }

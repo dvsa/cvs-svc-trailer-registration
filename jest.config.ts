@@ -18,7 +18,15 @@ const config: Config.InitialOptions = {
   collectCoverageFrom: ['src/**/*.{js,ts}', '!**/node_modules/**'],
   //TODO Add for integration
   coverageDirectory: 'coverage/unit',
-  coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/.webpack/', '/build/', '/.serverless/', '/reports/'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '/coverage/',
+    '/.webpack/',
+    '/.build/',
+    '/.serverless/',
+    '/reports/',
+    '/.artifact/',
+  ],
   coverageThreshold: {
     global: {
       branches: 80,
