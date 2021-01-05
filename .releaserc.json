@@ -1,4 +1,6 @@
 {
+  "branches": ["feature/CVSB-19017"],
+  "repositoryUrl": "https://github.com/dvsa/cvs-svc-trailer-registration.git",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
