@@ -1,6 +1,6 @@
 {
   "name": "cvs-svc-trailer-registration",
-  "version": "0.0.1",
+  "version": "0.0.0-semantically-released",
   "description": "A service to allow Trailer owners to apply for a registration mark for their trailer from DVLA. This will deliver the capability for DVSA to receive VRM so that that can be printed on trailer MOT where it is available.",
   "main": "src/index.ts",
   "engines": {
@@ -43,8 +43,7 @@
     "package:move": "mv ./.build/build.zip ./build.zip",
     "package": "npm-run-all clean package:*",
     "deploy": "echo 'run \"serveless deploy\" with production .env file - \".env.production\"'",
-    "semantic-release": "semantic-release",
-    "release": "npm i && npm run test && npm run build:production && echo '.artifact created!' && semantic-release --dry-run --debug --no-ci --branches 'feature/CVSB-19017'"
+    "release": "semantic-release"
   },
   "dependencies": {
     "express": "^4.17.1",

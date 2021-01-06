@@ -124,7 +124,18 @@ To be added
 
 ### Release
 
-To be added - semantic-release
+Releases (tag, release notes, changelog, github release, assets) are automatically managed by [semantic-release](https://semantic-release.gitbook.io/semantic-release/) and when pushing (or merging) to `master` branch which is protected.
+<br>
+Please be familiar with conventional commit as described in the Contributing section below.
+<br>
+Default preset used is angular for conventional commits, please see the [angular conventions](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional#type-enum).
+<br>
+The `<type>` `'breaking'` in the commit message will trigger a major version bump as well as any of the following text contained in the commit body: `"BREAKING CHANGE", "BREAKING CHANGES", "BREAKING_CHANGES", "BREAKING", "BREAKING_CHANGE"`. Please refer to the `.releaserc.json` file for the full configuration.
+<br>
+The script `npm run release` will automatically trigger the release in CI. To manually test the release the following flags -`--dry-run --no-ci` - can be passed to the release script.
+<br>
+<br>
+Publishing and artifacts are managed separately by the pipeline.
 
 </br>
 </br>
@@ -133,6 +144,7 @@ To be added - semantic-release
 ## Contributing
 
 To facilitate the standardisation of the code, a few helpers and tools have been adopted for this repository.
+
 </br>
 </br>
 
@@ -144,17 +156,17 @@ You will be required to install [git-secrets](https://github.com/awslabs/git-sec
 
 We follow the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0/) when we commit code to the repository and follow the [angular convention](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional#type-enum).
 
-The type is mandatory and must be all uppercase.
-The scope of your commit remain optional however if adding it, it must include your ticket number and be all uppercase or it will throw a warning.
+The type is mandatory and must be all lowercase.
+The scope of your commit remain is also mandator, it must include your ticket number and be all lowercase.
 
 ```js
 // Please see /commitlint.config.js for customised format
 
-TYPE(SCOPE?): subject
+type(scope?): subject
 
 // examples
-'CHORE(CVSB-1234): my commit msg' // pass
-'CHORE(cvsb-1234): my commit msg' // fail
+'chore(cvsb-1234): my commit msg' // pass
+'CHORE(cvsb-1234): my commit msg' // will fail
 
 ```
 
