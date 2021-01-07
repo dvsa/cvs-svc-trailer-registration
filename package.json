@@ -15,9 +15,10 @@
     "prepush": "BRANCH=local npm test && npm run tslint",
     "package": "mkdir ${ZIP_NAME} && cp package.json package-lock.json ${ZIP_NAME} && cp -r .build/src/* ${ZIP_NAME}/ && cd ${ZIP_NAME} && npm ci --production && rm package.json package-lock.json && zip -qr ../${ZIP_NAME}.zip .",
     "predeploy": "npm install && npm run prepush",
-    "security-checks": "git secrets --scan && git log -p | scanrepo",
-    "sonar-scanner": "echo TO_DO",
-    "audit-dep": "npm audit --json | audit-filter --nsp-config=.nsprc --audit=-"
+    "sonar-scanner": "echo 'TO_DO'",
+    "audit-dep": "npm audit --json | audit-filter --nsp-config=.nsprc --audit=-",
+    "security-checks": "npm audit --audit-level=critical && git secrets --register-aws && git secrets --scan && git log -p | scanrepo",
+    "tools-setup": "echo 'TO_DO'"
   },
   "author": "",
   "license": "ISC",
