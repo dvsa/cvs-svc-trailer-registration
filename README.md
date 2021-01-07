@@ -19,6 +19,7 @@ The Target architecture will see DVSA receive trailer information and update thi
 ## Dependencies
 
 The project runs on node 12.x with typescript and serverless framework. For further details about project dependencies, please refer to the `package.json` file.
+[nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) is used to managed node versions and configuration explicitely done per project using an `.npmrc` file.
 
 ## Running the project
 
@@ -98,7 +99,7 @@ For further information about debugging, please refer to the following documenta
 
 ## Testing
 
-[json-serverless](https://github.com/pharindoko/json-serverless) has been added to the repository should we wish to mock external services during development.
+[json-serverless](https://github.com/pharindoko/json-serverless) has been added to the repository should we wish to mock external services during development and can be used in conjunction with the `test` environment.
 </br>
 </br>
 
@@ -111,7 +112,7 @@ Please refer to the [Jest documentation](https://jestjs.io/docs/en/getting-start
 
 ### Integration
 
-To be added
+To be added and customised depending on needs, supertest is used but we could be looking at other packages such as nock, ts-mockito, typemoq, wiremock, etc.. or testing (pactjs, hoverfly, mockserver, etc..)
 </br>
 </br>
 </br>
@@ -124,7 +125,7 @@ To be added
 
 ### Release
 
-Releases (tag, release notes, changelog, github release, assets) are automatically managed by [semantic-release](https://semantic-release.gitbook.io/semantic-release/) and when pushing (or merging) to `master` branch which is protected.
+Releases (tag, release notes, changelog, github release, assets) are automatically managed by [semantic-release](https://semantic-release.gitbook.io/semantic-release/) and when pushing (or merging) to `master` branch which is protected. [semver](https://semver.org/) convention is followed.
 <br>
 Please be familiar with conventional commit as described in the Contributing section below.
 <br>
