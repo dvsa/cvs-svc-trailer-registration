@@ -2,6 +2,10 @@ import express from 'express';
 
 const app = express();
 
+const router = express.Router();
+
+const { API_VERSION } = process.env;
+
 // Declare middlewares
 /**
  * bodyParser, error handling, logger, etc..
@@ -16,16 +20,35 @@ const app = express();
  * next()
  * })
  */
+app.use((req, __, next) => {
+  // TODO Add logger lib like Winston or Morgan
+  console.log('path');
+  console.log(req.path);
+  next();
+});
 
 /**
  * Define routing and route level middleware if necessary from ./routes
  */
-app.get('/', (_, res) => {
+router.post('/', (_, res, next) => {
   res.send('Hello World!');
+  next();
 });
 
-app.post('/', (_, res) => {
-  res.send('posted!');
+router.post('/:id/unregister', (_, res, next) => {
+  res.send('Bye World!');
+  next();
+});
+
+app.use('/trailers', router);
+
+// Debug router before we start proxying  requests from /v<x> psth
+app.get('/', (_, res) => {
+  res.send({ ok: true });
+});
+
+app.get('/version', (_, res) => {
+  res.send({ version: API_VERSION });
 });
 
 export { app };
