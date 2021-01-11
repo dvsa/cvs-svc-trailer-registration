@@ -42,7 +42,10 @@ functions:
     handler: src/index.handler
     events:
       - http: ANY /
-      - http: 'ANY {proxy+}'
+      # We will proxy version from here in the client to match the API specs e.g. (<stage>)/v<x>/trailers
+      # We use basePath with version from serverless-http to mount the app locally and start proxying from it
+      # The version could be injected from here too
+      - http: 'ANY /{proxy+}'
   # Can also define specific functions on exposed routes using pattern matching, see below as example:
   # handler.ts containing exported getHello function is exposed on path /hello
   # that you can test locally sls invoke local -f getHello -d '{"path": "hello"}' or with sls offline
@@ -57,7 +60,7 @@ custom:
     webpackConfig: './scripts/webpack.config.js'
     keepOutputDirectory: false
     # can be toggled depending on env and .env files configuration
-    # includeModules: true # Node modules configuration for packaging, TBC whether we need the node_modules or 'inject' them when hosted on S3
+    includeModules: true # Node modules configuration for packaging, TBC whether we need the node_modules or 'inject' them when hosted on S3
     packager: 'npm' # Packager that will be used to package your external modules
     excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
   # https://www.serverless.com/plugins/serverless-offline#usage-with-webpack - See Usage and command line options
