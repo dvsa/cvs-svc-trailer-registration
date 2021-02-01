@@ -4,13 +4,13 @@ import { Context, APIGatewayEvent, APIGatewayProxyStructuredResultV2 } from 'aws
 
 import { app } from './infrastructure/api';
 
+import { createMajorVersionNumber, createHandlerBasePath } from './utils';
+
 const { NODE_ENV, API_VERSION, AWS_PROVIDER_REGION, AWS_PROVIDER_STAGE } = process.env;
 
 console.log(
   `\nRunning Service\n version: '${API_VERSION}'\n mode: ${NODE_ENV}\n stage: '${AWS_PROVIDER_STAGE}'\n region: '${AWS_PROVIDER_REGION}'\n\n`,
 );
-
-const MAJOR_VERSION = `v${API_VERSION.split('.')[0]}`;
 
 const handler = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyStructuredResultV2> => {
   console.log('event');
@@ -27,10 +27,21 @@ const handler = async (event: APIGatewayEvent, context: Context): Promise<APIGat
      * to proxy from the stage instead of /.
      * The Open API specs specifies it should contain the version as /v<x> so we use
      *
+     * Endpoints on API G must contain a stage (e.g. /devops) and must be followed by the version as /v1 for example
+     * if the version is used - For local development we allow both, also please see test data of API G (local/data/.*json)
+     *
+     * /<stage>/<valid-endpoint> will work
+     * /<stage>/v<x>/<valid-endpoint> will work
+     *
+     * /<valid-endpoint> won't work unless --noPrependStageInUrl is passed when running the serverless offline
+     * /<stage>/v<x>/something/<valid-endpoint> won't work
+     * something/<stage>/v<x>/<valid-endpoint> won't work
+     *
+     *
      * We use express Router to proxy redirect requests from /v<x>/
      */
     // basePath: `${AWS_PROVIDER_STAGE}/${MAJOR_VERSION}`,
-    basePath: `${MAJOR_VERSION}`,
+    basePath: createHandlerBasePath(createMajorVersionNumber(API_VERSION)),
   })(event, context);
 };
 

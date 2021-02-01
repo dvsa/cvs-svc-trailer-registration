@@ -1,0 +1,4 @@
+{
+  "httpMethod": "POST",
+  "path": "local-stage/v1/trailers/:id/unregister"
+}

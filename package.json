@@ -44,6 +44,7 @@
     "package": "npm-run-all clean package:*",
     "deploy": "echo 'run \"serveless deploy\" with production .env file - \".env.production\"'",
     "release": "semantic-release",
+    "prerelease": "semantic-release --dry-run",
     "dependencies:check": "ncu"
   },
   "dependencies": {
