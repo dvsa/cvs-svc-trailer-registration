@@ -31,6 +31,8 @@ describe('API', () => {
         .expect(200)
         .expect(({ text }) => {
           expect(text).toBe('Bye World!');
+          expect(text).toBe('Bye World!');
+          expect(text).toBe('Bye World!');
         })
         .end(done);
     });
