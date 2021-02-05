@@ -1,3 +1,17 @@
+# [1.1.0](https://github.com/dvsa/cvs-svc-trailer-registration/compare/1.0.0...1.1.0) (2021-02-05)
+
+
+### Features
+
+* **cvsb-19017:** fix mobile build ([9f9fcc9](https://github.com/dvsa/cvs-svc-trailer-registration/commit/9f9fcc90cabb8d235d56b4892a25537b8f4155e1))
+
+# [1.1.0](https://github.com/dvsa/cvs-svc-trailer-registration/compare/1.0.0...1.1.0) (2021-02-05)
+
+
+### Features
+
+* **cvsb-19017:** fix mobile build ([9f9fcc9](https://github.com/dvsa/cvs-svc-trailer-registration/commit/9f9fcc90cabb8d235d56b4892a25537b8f4155e1))
+
 # 1.0.0 (2021-01-11)
 
 
