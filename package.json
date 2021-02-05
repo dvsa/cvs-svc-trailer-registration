@@ -1,6 +1,6 @@
 {
   "name": "cvs-svc-trailer-registration",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A service to allow Trailer owners to apply for a registration mark for their trailer from DVLA. This will deliver the capability for DVSA to receive VRM so that that can be printed on trailer MOT where it is available.",
   "main": "src/index.ts",
   "engines": {
