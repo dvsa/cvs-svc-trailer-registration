@@ -38,6 +38,10 @@ describe('API', () => {
           expect(text).toBe('Bye World!');
           expect(text).toBe('Bye World!');
           expect(text).toBe('Bye World!');
+          expect(text).toBe('Bye World!');
+          expect(text).toBe('Bye World!');
+          expect(text).toBe('Bye World!');
+          expect(text).toBe('Bye World!');
         })
         .end(done);
     });
