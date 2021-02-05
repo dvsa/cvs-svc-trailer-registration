@@ -30,7 +30,7 @@ describe('API', () => {
         .post('/trailers/:id/unregister')
         .expect(200)
         .expect(({ text }) => {
-          expect(text).toBe('Bye World!');
+          expect(text).toBe('Bye World Jon!');
         })
         .end(done);
     });
@@ -40,7 +40,7 @@ describe('API', () => {
         .post('/trailers')
         .expect(200)
         .expect(({ text }) => {
-          expect(text).toBe('Hello World!');
+          expect(text).toBe('Hello World Jon!');
         })
         .end(done);
     });

@@ -61,7 +61,7 @@ describe('Application entry', () => {
           const response = await handler(event, context);
 
           expect(response.statusCode).toEqual(200);
-          expect(response.body).toBe('Hello World!');
+          expect(response.body).toBe('Hello World Jon!');
         });
 
         it(`should not call the service when the version is not injected`, async () => {
@@ -76,7 +76,7 @@ describe('Application entry', () => {
           const response = await handler(event, context);
 
           expect(response.statusCode).toEqual(200);
-          expect(response.body).toBe('Hello World!');
+          expect(response.body).toBe('Hello World Jon!');
         });
 
         it(`should not call the service/lambda when the path does not contain a valid endpoint with a version`, async () => {
@@ -104,7 +104,7 @@ describe('Application entry', () => {
           const response = await handler(event, context);
 
           expect(response.statusCode).toEqual(200);
-          expect(response.body).toBe('Hello World!');
+          expect(response.body).toBe('Hello World Jon!');
         });
 
         it(`should call the service/lambda when the path contains '/trailers/:id/unregister'`, async () => {
@@ -116,7 +116,7 @@ describe('Application entry', () => {
           const response = await handler(event, context);
 
           expect(response.statusCode).toEqual(200);
-          expect(response.body).toBe('Bye World!');
+          expect(response.body).toBe('Bye World Jon!');
         });
       });
 

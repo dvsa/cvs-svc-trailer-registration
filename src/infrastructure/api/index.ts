@@ -31,12 +31,12 @@ app.use((req, __, next) => {
  * Define routing and route level middleware if necessary from ./routes
  */
 router.post('/', (_, res, next) => {
-  res.send('Hello World!');
+  res.send('Hello World Jon!');
   next();
 });
 
 router.post('/:id/unregister', (_, res, next) => {
-  res.send('Bye World!');
+  res.send('Bye World Jon!');
   next();
 });
 
