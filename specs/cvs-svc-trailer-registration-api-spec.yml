@@ -1,0 +1,304 @@
+openapi: 3.0.0
+
+info:
+  description:
+    DVSA Third Party Integration - DVLA
+  version: 1.0.1
+  title: DVSA API DVLA
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+tags:
+  - name: Trailer Data
+    description: Data Definition Contract for DVLA's Trailer Data Integration
+
+servers:
+  - url: https://api.example.com
+
+security:
+      - OAuth-ClientCredentials: []
+
+paths:
+  /v1/trailers:
+
+    parameters:
+      - $ref: '#/components/parameters/apiKey'
+      - $ref: '#/components/parameters/OAuth-ClientCredentials'
+
+    post:
+      requestBody:
+        description: Trailer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Trailer'
+      tags:
+        - Trailer Data
+      summary: Provide VRM and Certificate details for one or more trailers
+      operationId: postTrailerData
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrailerRegistration'
+        405:
+          description: Invalid input
+        400:
+          description: Bad request
+        401:
+          description: Not authenticated
+        403:
+          description: Unauthorised Access
+        422:
+          description: Unprocessable request
+        500:
+          description: Unexpected Error
+
+  /v1/trailers/deregister/{trn}:
+
+    parameters:
+      - $ref: '#/components/parameters/apiKey'
+      - $ref: '#/components/parameters/OAuth-ClientCredentials'
+
+      - in: path
+        name: trn
+        schema:
+          type: string
+          maxLength: 8
+          example: "A123ABC"
+        required: true
+        description: TRN assigned to a trailer
+
+    put:
+      requestBody:
+        description: Deregister Request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeregisterTrailer'
+      tags:
+        - Trailer Data
+      summary: Deregister the TRN from the associated trailer
+      operationId: deregisterTrailer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrailerRegistration'
+        405:
+          description: Invalid input
+        400:
+          description: Bad request
+        401:
+          description: Not authenticated
+        403:
+          description: Unauthorised Access
+        422:
+          description: Unprocessable request
+        500:
+          description: Unexpected Error
+          
+  /v1/trailers/{vin}:
+
+    parameters:
+      - $ref: '#/components/parameters/apiKey'
+      - $ref: '#/components/parameters/OAuth-ClientCredentials'
+
+      - in: path
+        name: vin
+        schema:
+          type: string
+          maxLength: 16
+          example: "1GRDM9020JJ007804"
+          format: /^(?:([A-HJ-NPR-Z]){3}|\d{3})(?1){2}\d{2}(?:(?1)|\d)(?:\d|X)(?:(?1)+\d+|\d+(?1)+)\d{6}$/i
+        required: true
+        description: VIN (or Chassis No) assigned to a trailer          
+          
+    get:
+      parameters:
+      - in: query
+        name: make
+        schema:
+          type: string
+        required: true
+      tags:
+        - Trailer Data
+      summary: Get a Trailer TRN object
+      operationId: getTrailerTrn
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrailerRegistration'
+        405:
+          description: Invalid input
+        400:
+          description: Bad request
+        401:
+          description: Not authenticated
+        403:
+          description: Unauthorised Access
+        422:
+          description: Unprocessable request
+        500:
+          description: Unexpected Error
+
+components:
+  parameters:
+    apiKey:
+      in: header
+      name: x-api-key
+      required: true
+      schema:
+        type: string
+      description: Simple server-server API Authentication
+
+    OAuth-ClientCredentials:
+      in: header
+      name: Authorisation
+      required: true
+      schema:
+        type: string
+      description: Valid DVSA Issued JWT
+
+  schemas:
+    Trailer:
+      type: object
+      required:
+        - vin
+        - make
+        - vrm
+        - certificateExpiryDate
+        - certificateIssueDate
+      properties:
+        vin:
+          type: string
+          maxLength: 17
+          example: "1GRDM9020JJ007804"
+          format: /^(?:([A-HJ-NPR-Z]){3}|\d{3})(?1){2}\d{2}(?:(?1)|\d)(?:\d|X)(?:(?1)+\d+|\d+(?1)+)\d{6}$/i
+        make:
+          type: string
+          maxLength: 30
+          example: "Doepker Industries"
+        trn:
+          type: string
+          maxLength: 8
+          example: "XX111XX"
+        certificateExpiryDate:
+          type: string
+          format: date-time
+          example: "2020-06-29T15:10:01.000Z"
+        certificateIssueDate:
+          type: string
+          format: date-time
+          example: "2020-06-29T15:10:01.000Z"
+
+    DeregisterTrailer:
+      type: object
+      required:
+        - deregisterDate
+        - reasonForDeregistration
+        - make
+      properties:
+        deregisterDate:
+          type: string
+          format: date-time
+          example: "2020-06-29T15:10:01.000Z"
+        reasonForDeregistration:
+          type: string
+          maxLength: 30
+
+    TrailerRegistration:
+      type: object
+      required:
+        - vin
+        - make
+        - trn
+        - certificateExpiryDate
+        - certificateIssueDate
+      properties:
+        vinOrChassisWithMake:
+          type: string
+          example: "1GRDM9020JJ00 Doepker Industries"
+          description: The key attribute. It will be vin if the vin is 17 digits else it is vin + make.
+        vin:
+          type: string
+          maxLength: 17
+          example: "1GRDM9020JJ007804"
+          format: /^(?:([A-HJ-NPR-Z]){3}|\d{3})(?1){2}\d{2}(?:(?1)|\d)(?:\d|X)(?:(?1)+\d+|\d+(?1)+)\d{6}$/i
+        make:
+          type: string
+          maxLength: 30
+          example: "Doepker Industries"
+        trn:
+          type: string
+          maxLength: 8
+          example: "XX111XX"
+        certificateExpiryDate:
+          type: string
+          format: date-time
+          example: "2020-06-29T15:10:01.000Z"
+        certificateIssueDate:
+          type: string
+          format: date-time
+          example: "2020-06-29T15:10:01.000Z"
+        reasonForDeregistration:
+          type: string
+          maxLength: 30
+          nullable: true
+        deregisterDate:
+          type: string
+          format: date-time
+          nullable: true
+        archive:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrailerRegistrationChild'
+          nullable: true
+          description: list of archived records in case of deregistration.
+    TrailerRegistrationChild:
+      type: object
+      properties:
+        vin:
+          type: string
+          maxLength: 17
+          example: "1GRDM9020JJ007804"
+          format: /^(?:([A-HJ-NPR-Z]){3}|\d{3})(?1){2}\d{2}(?:(?1)|\d)(?:\d|X)(?:(?1)+\d+|\d+(?1)+)\d{6}$/i
+        make:
+          type: string
+          maxLength: 30
+          example: "Doepker Industries"
+        trn:
+          type: string
+          maxLength: 8
+          example: "XX111XX"
+        certificateExpiryDate:
+          type: string
+          format: date-time
+          example: "2020-06-29T15:10:01.000Z"
+        certificateIssueDate:
+          type: string
+          format: date-time
+          example: "2020-06-29T15:10:01.000Z"
+        reasonForDeregistration:
+          type: string
+          maxLength: 30
+          nullable: true
+        deregisterDate:
+          type: string
+          format: date-time
+          nullable: true
+  securitySchemes:
+    OAuth-ClientCredentials:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

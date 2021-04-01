@@ -1,20 +1,30 @@
-import supertest from 'supertest';
-import { app } from '../../src/infrastructure/api';
+import { APIGatewayEvent, APIGatewayProxyEvent, Context } from 'aws-lambda';
+import { handler } from '../../src/handler';
 
-// TODO Define Mock strategy
-describe('API', () => {
+describe('Application entry', () => {
+  let event: APIGatewayProxyEvent;
+  let context: Context;
+
+  beforeEach(() => {
+    event = {} as APIGatewayEvent;
+    context = {} as Context;
+  });
+
   afterEach(() => {
     jest.resetAllMocks().restoreAllMocks();
   });
 
-  describe('GET', () => {
-    test("should return '{ok: true}' when hitting '/' route", async () => {
-      const result = await supertest(app).get('/');
-      const resultContent = JSON.parse(result.text) as { ok: boolean };
+  describe('Handler', () => {
+    it('should initialize and call the correct route on express wrapper', async () => {
+      const payload = {};
+      event = ({
+        httpMethod: 'POST',
+        path: '/v1/trailers/',
+        body: JSON.stringify(payload),
+      } as unknown) as APIGatewayProxyEvent;
 
-      expect(result.status).toEqual(200);
-      expect(resultContent).toHaveProperty('ok');
-      expect(resultContent.ok).toEqual(true);
+      const response = await handler(event, context);
+      expect(response.statusCode).toEqual(400);
     });
   });
 });

@@ -1,16 +1,19 @@
 # cvs-svc-trailer-registration
 
+## Introduction
+The trailer registration service to be consumed by DVLA to save trailer registration certificates. More details related to class diagrams and detailed description of the service and the database is [here](https://wiki.dvsacloud.uk/display/HVT/DVLA+Trailer+Registrations).
 ## Dependencies
 
 The project runs on node 10.x with typescript and serverless framework. For further details about project dependencies, please refer to the `package.json` file.
-[nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) is used to managed node versions and configuration explicitly done per project using an `.npmrc` file.
+[nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) is used to managed node versions and configuration explicitly done per project using an `.npmrc` file. You may need to install dynamoDB as well using the following command:
+- `node_modules/.bin/sls dynamodb install`
 
 ## Running the project
 
 Once the dependencies are installed, you will be required to rename the `/config/env.example` file to `.env.local` as we use dotenv files for configuration for local local development for example. Further information about [variables](https://www.serverless.com/framework/docs/providers/aws/guide/variables/) and [environment variables](https://www.serverless.com/framework/docs/environment-variables/) with serverless.
 Please note that serverless framework is only used to develop locally and mock API Gateway.
 
-The application runs on port `:3001` by default when no stage is provided.
+The application runs on port `:3020` by default when no stage is provided.
 
 The service has local environmental variables (please see `env` placeholder file) set locally however should we wish to further extend the service, the environmental variables will need to be ported over to the CI/CD pipeline which currently uses the following environmental variables: `BRANCH` and `BUCKET`.
 
