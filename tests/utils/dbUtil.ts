@@ -2,15 +2,18 @@
 import { DataAccess } from '../../src/utils/data-access';
 import trailerRegistrations from '../../data/trailer-registration.json';
 import * as domain from '../../src/domain';
+import { debug } from '../../src/utils/logger';
 
 export const populateDatabase = async () => {
   const DAO = new DataAccess();
-  await DAO.createMultiple((trailerRegistrations as unknown) as domain.TrailerRegistration[]);
+  const result = await DAO.createMultiple((trailerRegistrations as unknown) as domain.TrailerRegistration[]);
+  debug('populate result', result);
 };
 
 export const emptyDatabase = async () => {
   const DAO = new DataAccess();
   const registrations = (trailerRegistrations as unknown) as domain.TrailerRegistration[];
   const ids = registrations.map((reg) => reg.vinOrChassisWithMake);
-  await DAO.deleteMultiple(ids);
+  const result = await DAO.deleteMultiple(ids);
+  debug('delete result', result);
 };

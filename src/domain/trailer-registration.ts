@@ -10,7 +10,12 @@ export interface TrailerRegistration {
   archive?: TrailerRegistration[];
 }
 
-export interface DeregisterTrailer {
+export interface DeregisterTrailerRequest {
   reasonForDeregistration: string;
   deregisterDate: Date;
+}
+
+export interface GetTrailerRequest {
+  vin: string;
+  make: string;
 }

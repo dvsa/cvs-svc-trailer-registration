@@ -70,6 +70,7 @@ export class DataAccess {
     };
     const data = (await this.getById(getParams)) as { Count: number; Items: unknown };
     if (!data || !data.Count) {
+      debug('record not found for', vinOrChassisWithMake);
       return null;
     }
     return data.Items as domain.TrailerRegistration[];

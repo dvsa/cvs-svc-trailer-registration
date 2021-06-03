@@ -54,6 +54,7 @@ describe('deregister trailer', () => {
 
     const response = await request.put(`${requestUrl}/${trn}`).send(payload);
     const deRegistered = response.body as domain.TrailerRegistration;
+    console.log('deregistered', deRegistered);
     expect(response.status).toEqual(200);
     expect(deRegistered.vinOrChassisWithMake).toEqual(expectedResponse.vinOrChassisWithMake);
     expect(deRegistered.reasonForDeregistration).toEqual(expectedResponse.reasonForDeregistration);
@@ -90,6 +91,7 @@ describe('deregister trailer', () => {
 
     const response = await request.put(`${requestUrl}/${trn}`).send(payload);
     const deRegistered = response.body as domain.TrailerRegistration;
+    console.log(deRegistered);
     expect(response.status).toEqual(200);
     expect(deRegistered.vinOrChassisWithMake).toEqual(expectedResponse.vinOrChassisWithMake);
     expect(deRegistered.reasonForDeregistration).toEqual(expectedResponse.reasonForDeregistration);

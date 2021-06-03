@@ -1,24 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Request, Response, NextFunction } from 'express';
 import * as domain from '../../domain';
-import { DataAccess } from '../../utils/data-access';
-import { warn } from '../../utils/logger';
-import { IRequestHandler } from './i-request-handler';
+import { warn, debug } from '../../utils/logger';
 import { deregisterTrailerValidator } from '../validators/deregister-trailer-validator';
+import { TrailerRegistrationBase } from './trailer-registration-base';
+import * as usecase from '../../app';
 
-export class DeregisterTrailer implements IRequestHandler {
-  private dao: DataAccess;
-
-  constructor(_dao: DataAccess) {
-    this.dao = _dao;
-  }
-
-  private validate(payload?: domain.DeregisterTrailer): string {
+export class DeregisterTrailer extends TrailerRegistrationBase {
+  private validate(payload?: domain.DeregisterTrailerRequest): string {
     const errors = deregisterTrailerValidator.validate(payload, { abortEarly: false }).error;
     return errors?.message;
   }
 
   public async call(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const deregisterTrailer = req.body as domain.DeregisterTrailer;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const deregisterTrailer = req.body as domain.DeregisterTrailerRequest;
     const { trn } = req.params;
 
     const errors = this.validate(deregisterTrailer);
@@ -35,14 +31,18 @@ export class DeregisterTrailer implements IRequestHandler {
         res.status(204).send();
         return;
       }
-      existingTrailerRegistration = {
-        ...existingTrailerRegistration,
-        reasonForDeregistration,
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      existingTrailerRegistration = usecase.deregisterTrailer(
+        existingTrailerRegistration,
         deregisterDate,
-      };
+        reasonForDeregistration,
+      );
+
       const result = await this.dao.upsertTrailerRegistration(existingTrailerRegistration);
       res.status(200).send(result);
     } catch (error) {
+      debug('deregister failed for', req.body);
       next(new domain.HTTPError(500, error));
     }
   }
@@ -56,7 +56,6 @@ export class DeregisterTrailer implements IRequestHandler {
     if (trailerRegistration.length === 1) {
       return trailerRegistration[0];
     }
-
     throw new domain.HTTPError(500, `${domain.ERRORS.MULTIPLE_REGISTRATIONS} for trn${trn}`);
   }
 }
