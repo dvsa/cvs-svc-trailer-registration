@@ -57,11 +57,7 @@ export class DataAccess {
     trailerRegistration: domain.TrailerRegistration,
   ): Promise<domain.TrailerRegistration> {
     await this.put<domain.TrailerRegistration>(trailerRegistration);
-    const result = await this.getByVinOrChassisWithMake(trailerRegistration.vinOrChassisWithMake);
-    if (result && result.length) {
-      return result[0];
-    }
-    return null;
+    return trailerRegistration;
   }
 
   public async getByVinOrChassisWithMake(vinOrChassisWithMake: string): Promise<domain.TrailerRegistration[]> {
@@ -94,38 +90,34 @@ export class DataAccess {
     return data.Items as domain.TrailerRegistration[];
   }
 
-  public createMultiple(
+  public async createMultiple(
     trailerRegistrations: domain.TrailerRegistration[],
   ): Promise<PromiseResult<DocumentClient.BatchWriteItemOutput, AWSError>> {
     const params = this.generateBatchWritePartialParams();
 
-    trailerRegistrations.forEach((trailerRegistration) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      params.RequestItems[this.tableName].push({
-        PutRequest: {
-          Item: trailerRegistration,
-        },
-      });
-    });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    params.RequestItems[this.tableName].push(...trailerRegistrations.map((trailerRegistration) => ({
+      PutRequest: {
+        Item: trailerRegistration,
+      },
+    })));
 
     return this.batchWrite(params);
   }
 
-  public deleteMultiple(
+  public async deleteMultiple(
     vinOrChassisWithMakeIds: string[],
   ): Promise<PromiseResult<DocumentClient.BatchWriteItemOutput, AWSError>> {
     const params = this.generateBatchWritePartialParams();
 
-    vinOrChassisWithMakeIds.forEach((id) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      params.RequestItems[this.tableName].push({
-        DeleteRequest: {
-          Key: {
-            vinOrChassisWithMake: id,
-          },
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    params.RequestItems[this.tableName].push(...vinOrChassisWithMakeIds.map((id) => ({
+      DeleteRequest: {
+        Key: {
+          vinOrChassisWithMake: id,
         },
-      });
-    });
+      },
+    })));
 
     return this.batchWrite(params);
   }

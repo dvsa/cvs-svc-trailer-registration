@@ -67,7 +67,7 @@ describe('deregister trailer', () => {
       make,
       certificateIssueDate,
       certificateExpiryDate,
-    } = trailerRegistrations[3];
+    } = trailerRegistrations[2];
     const requestUrl = '/v1/trailers/deregister';
     const payload = {
       deregisterDate: '2020-12-29T15:10:01+0000',
