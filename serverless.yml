@@ -77,7 +77,7 @@ custom:
       trailer-registration:
         sources:
           - table: cvs-local-trailer-registration
-            sources: [./data/trailer-registration.json]
+            sources: [./tests/resources/trailer-registration.json]
     stages:
       - local
       - dev

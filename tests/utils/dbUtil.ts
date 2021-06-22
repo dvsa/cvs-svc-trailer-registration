@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { DataAccess } from '../../src/utils/data-access';
-import trailerRegistrations from '../../data/trailer-registration.json';
+import trailerRegistrations from '../resources/trailer-registration.json';
 import * as domain from '../../src/domain';
 import { debug } from '../../src/utils/logger';
 
