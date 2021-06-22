@@ -1,0 +1,30 @@
+[
+    { 
+        "vinOrChassisWithMake": "GRDM9020JJ007804",
+        "vin": "GRDM9020JJ007804", 
+        "make": "Doepker Industries", 
+        "trn": "A1234567",
+        "certificateExpiryDate": "2022-04-14T15:49:30.881Z",
+        "certificateIssueDate": "2021-04-14T15:49:30.881Z",
+        "reasonForDeregistration": null,
+        "deregisterDate": null
+    },
+    { 
+        "vinOrChassisWithMake": "QWGR329020JJ00120",
+        "vin": "QWGR329020JJ00120", 
+        "make": "Doepker Industries", 
+        "trn": "VV934567",
+        "certificateExpiryDate": "2022-03-14T15:49:30.881Z",
+        "certificateIssueDate": "2021-03-14T15:49:30.881Z",
+        "reasonForDeregistration": null,
+        "deregisterDate": null
+    },
+    {
+        "vinOrChassisWithMake":"ABC9020JJ00780464",
+        "vin":"ABC9020JJ00780464",
+        "make":"Some Industries",
+        "trn":"AB127861",
+        "certificateExpiryDate":"2022-04-14T15:49:30.881Z",
+        "certificateIssueDate":"2021-04-14T15:49:30.881Z"
+     }
+]

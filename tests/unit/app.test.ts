@@ -1,98 +1,34 @@
-import { APIGatewayEvent, Context } from 'aws-lambda';
-import { handler } from '../../src/handler';
-import * as Utils from '../../src/utils';
-import Version from '../../local/data/version.json';
-import Template from '../../local/data/template-something.json';
-import { SEMVER_REGEX } from '../../src/constants';
+import supertest from 'supertest';
+import { app } from '../../src/infrastructure/api';
 
-describe('Application entry', () => {
-  let event;
-  let context;
-  let majorVersionNumber: string;
-
-  beforeEach(() => {
-    event = {} as APIGatewayEvent;
-    context = {} as Context;
-    jest.spyOn(Utils, 'createMajorVersionNumber').mockReturnValue('1');
-    majorVersionNumber = Utils.createMajorVersionNumber('1.0.0');
-  });
-
+describe('API', () => {
   afterEach(() => {
     jest.resetAllMocks().restoreAllMocks();
   });
 
-  describe('Handler', () => {
-    it('should call the express wrapper', async () => {
-      event = { body: 'Test Body' };
+  describe('POST /', () => {
+    test('should call the post route', async () => {
+      const payload = {
+        vin: 'ABC1321234566',
+        make: 'big truck',
+        certificateExpiryDate: '2021-12-12',
+        certificateIssueDate: '2021-01-01',
+      };
 
-      const response = await handler(event, context);
-      expect(response.statusCode).toEqual(200);
-      expect(typeof response.body).toBe('string');
+      const result = await supertest(app).post('/v1/trailers').send(payload);
+      expect(result.status).toEqual(400);
+      expect(result.text).toEqual('"trn" is required');
     });
+  });
 
-    describe('when the service is running', () => {
-      describe('without proxy', () => {
-        it("should return a body response when the handler has event with the '/' as path", async () => {
-          event = { httpMethod: 'GET', path: '/' };
+  describe('PUT /deregister/:trn', () => {
+    test('should call the deregister route', async () => {
+      const payload = {
+        reasonForDeregistration: 'old registration',
+      };
 
-          const response = await handler(event, context);
-          const parsedBody = JSON.parse(response.body) as { ok: boolean };
-
-          expect(parsedBody.ok).toBe(true);
-        });
-      });
-    });
-
-    describe('with proxy', () => {
-      describe("on '<path>' or '<version>'", () => {
-        it('should receive the version number from an environmental variable following semver convention', () => {
-          expect(process.env.API_VERSION).toMatch(SEMVER_REGEX);
-        });
-
-        it('should have version number in the API shown as major', () => {
-          expect(majorVersionNumber).toMatch(/^(\d+)$/);
-          expect(majorVersionNumber).not.toMatch(/^(\d+\.)$/);
-        });
-      });
-
-      describe("on '/version' endpoint(s)", () => {
-        it("should call the service/lambda when the path contains '/version' and return the app version following the semver convention", async () => {
-          event = {
-            ...Version,
-          };
-
-          const response = await handler(event, context);
-          const parsedResponse = JSON.parse(response.body) as { version: string };
-          // is given when we build the file as API_VERSION from package.json with $npm_package_version
-          // TODO we follow semver for code versioning ATM and only use the major for the API endpoint as v1
-          const { API_VERSION } = process.env;
-
-          expect(response.statusCode).toEqual(200);
-          expect(parsedResponse.version).toBe(API_VERSION);
-        });
-      });
-
-      describe("on /v'x'/template endpoint(s)", () => {
-        it('should call the router endpoint', async () => {
-          event = {
-            ...Template,
-          };
-          const { statusCode, body } = await handler(event, context);
-          expect(statusCode).toEqual(200);
-          expect(body).not.toBe(undefined);
-          expect(body).toEqual('ok template route');
-        });
-
-        it("should get a '404' if the base path endpoint does not contain the 'SERVICE'", async () => {
-          event = {
-            httpMethod: 'POST',
-            path: '/stage/v1/wrong-service-name/1/something',
-          };
-
-          const response = await handler(event, context);
-          expect(response.statusCode).toEqual(404);
-        });
-      });
+      const result = await supertest(app).put('/v1/trailers/deregister/ABC123').send(payload);
+      expect(result.status).toEqual(400);
     });
   });
 });
