@@ -84,9 +84,9 @@ custom:
       - local
       - dev
       - test
-  
+
 resources:
-   Resources:
+  Resources:
     TrailerRegistration:
       Type: AWS::DynamoDB::Table
       Properties:
