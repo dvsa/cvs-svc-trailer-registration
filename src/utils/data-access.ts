@@ -96,11 +96,13 @@ export class DataAccess {
     const params = this.generateBatchWritePartialParams();
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    params.RequestItems[this.tableName].push(...trailerRegistrations.map((trailerRegistration) => ({
-      PutRequest: {
-        Item: trailerRegistration,
-      },
-    })));
+    params.RequestItems[this.tableName].push(
+      ...trailerRegistrations.map((trailerRegistration) => ({
+        PutRequest: {
+          Item: trailerRegistration,
+        },
+      })),
+    );
 
     return this.batchWrite(params);
   }
@@ -111,13 +113,15 @@ export class DataAccess {
     const params = this.generateBatchWritePartialParams();
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    params.RequestItems[this.tableName].push(...vinOrChassisWithMakeIds.map((id) => ({
-      DeleteRequest: {
-        Key: {
-          vinOrChassisWithMake: id,
+    params.RequestItems[this.tableName].push(
+      ...vinOrChassisWithMakeIds.map((id) => ({
+        DeleteRequest: {
+          Key: {
+            vinOrChassisWithMake: id,
+          },
         },
-      },
-    })));
+      })),
+    );
 
     return this.batchWrite(params);
   }

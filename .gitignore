@@ -31,9 +31,6 @@ jspm_packages
 .artifact
 *.zip
 
-# env files
-*.env*
-
 # Coverage reports
 coverage
 reports

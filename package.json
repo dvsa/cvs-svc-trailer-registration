@@ -20,7 +20,7 @@
     "test:unit": "cross-env NODE_ENV=test SERVICE=${npm_package_name} API_VERSION=${npm_package_version} jest tests/unit",
     "test:unit:watch": "npm run test:unit -- --watch",
     "test:unit:coverage": "cross-env npm run test:unit -- --coverage",
-    "test-i": "npm run test:integration",
+    "test-i": "npm run test:integration -- --globalSetup='./setup.js' --globalTeardown='./teardown.js'",
     "test:integration": "cross-env NODE_ENV=test jest tests/integration",
     "test:integration:watch": "npm run test:integration -- --watch",
     "test:integration:coverage": "cross-env npm run test:integration -- --coverage",
@@ -46,7 +46,7 @@
     "prerelease": "semantic-release --dry-run",
     "dependencies:check": "ncu",
     "dynamodb": "sls dynamodb start",
-    "tools-setup": "sls dynamodb migrate && BRANCH=local gulp start-serverless && sls dynamodb seed --seed=trailer-registration"
+    "tools-setup": "echo 'nothing to do'"
   },
   "dependencies": {
     "aws-lambda": "1.0.6",
