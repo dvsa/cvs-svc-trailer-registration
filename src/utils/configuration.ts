@@ -41,6 +41,6 @@ export class Configurations {
   }
 
   get GlobalLogLevel(): string {
-    return process.env.LOG_LEVEL || 'DEBUG';
+    return process.env.LOG_LEVEL || 'WARN';
   }
 }

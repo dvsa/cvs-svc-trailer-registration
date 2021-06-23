@@ -70,9 +70,9 @@ custom:
     start:
       port: ${env:DYNAMO_PORT, 8020}
       inMemory: true
-      migrate: false
-      seed: false
-      noStart: true
+      migrate: true
+      seed: true
+      noStart: false
     seed:
       trailer-registration:
         sources:
