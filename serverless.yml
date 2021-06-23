@@ -23,21 +23,18 @@ plugins:
   - serverless-offline
 
 provider:
-  profile: ${env:AWS_PROVIDER_PROFILE, 'default'}
   name: aws
   runtime: nodejs10.x
   apiGateway:
     # https://www.serverless.com/framework/docs/deprecations/#LOAD_VARIABLES_FROM_ENV_FILES
     shouldStartNameWithService: true
-  stage: ${env:AWS_PROVIDER_STAGE, 'local'}
-  region: ${env:AWS_PROVIDER_REGION, 'eu-west-1'}
+  stage: local
+
   # To load environment variables externally
   # rename env.example to .env.local
   # docs: https://github.com/serverless/serverless/blob/master/docs/providers/aws/guide/variables.md
   # we use dotenv, docs: https://github.com/colynb/serverless-dotenv-plugin
   environment:
-    SERVICE_VERSION: ${env:API_VERSION}
-    AWS_PROVIDER_REGION: ${self:provider.region}
     SERVICE: ${env:SERVICE, 'trailers'}
 
 functions:
