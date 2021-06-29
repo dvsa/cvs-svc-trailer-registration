@@ -1,5 +1,5 @@
 import { TrailerRegistration, MESSAGES } from '../../domain';
-import { debug } from '../../utils/logger';
+import { log } from '../../utils/logger';
 import { deregisterTrailer } from './deregister-trailer';
 
 export const archiveTrailer = (
@@ -20,6 +20,6 @@ export const archiveTrailer = (
     : deregisterTrailer(existingTrailerRegistration, certificateIssueDate, MESSAGES.NEW_CERTIFICATE_RECEIVED);
   newTrailerRegistration.archive.push(recordToArchive);
   newTrailerRegistration.vinOrChassisWithMake = vinOrChassisWithMake;
-  debug('newTrailerRegsitration with archive', newTrailerRegistration);
+  log.debug('newTrailerRegsitration with archive', newTrailerRegistration);
   return newTrailerRegistration;
 };

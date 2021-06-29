@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { IRequestHandler } from './i-request-handler';
 import { DataAccess } from '../../utils/data-access';
 import * as domain from '../../domain';
-import { debug } from '../../utils/logger';
+import { log } from '../../utils/logger';
 
 export abstract class TrailerRegistrationBase implements IRequestHandler {
   dao: DataAccess;
@@ -23,7 +23,7 @@ export abstract class TrailerRegistrationBase implements IRequestHandler {
       return null;
     }
     if (trailerRegistration.length === 1) {
-      debug('record found on GET', trailerRegistration);
+      log.debug('record found on GET', trailerRegistration);
       return trailerRegistration[0];
     }
 

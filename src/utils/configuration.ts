@@ -40,7 +40,7 @@ export class Configurations {
     return dbParams;
   }
 
-  get GlobalLogLevel(): string {
+  get globalLogLevel(): string {
     if (this.branch === 'local') {
       return 'DEBUG';
     }

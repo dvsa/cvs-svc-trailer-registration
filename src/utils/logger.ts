@@ -7,46 +7,65 @@ export enum LogLevel {
   WARN = 3,
   ERROR = 4,
 }
-const globalLevel = Configurations.getInstance().GlobalLogLevel;
+const globalLevel = Configurations.getInstance().globalLogLevel;
 
-export const trace = (body: unknown, params?: unknown): void => {
-  if (LogLevel[globalLevel] > LogLevel.TRACE) {
-    return;
-  }
-  handleLogFunction(body, console.trace, params);
-};
+export class Logger {
+  private logLevel:string;
 
-export const debug = (body: unknown, params?: unknown): void => {
-  if (LogLevel[globalLevel] > LogLevel.DEBUG) {
-    return;
+  constructor(loggingLevel:string) {
+    this.logLevel = loggingLevel;
   }
-  handleLogFunction(body, console.debug, params);
-};
 
-export const info = (body: unknown, params?: unknown): void => {
-  if (LogLevel[globalLevel] > LogLevel.INFO) {
-    return;
+  public trace(body: unknown, params?: unknown): boolean {
+    if (LogLevel[this.logLevel] > LogLevel.TRACE) {
+      return false;
+    }
+    Logger.handleLogFunction(body, console.trace, params);
+    return true;
   }
-  handleLogFunction(body, console.info, params);
-};
 
-export const warn = (body: unknown, params?: unknown): void => {
-  if (LogLevel[globalLevel] > LogLevel.WARN) {
-    return;
+  public debug(body: unknown, params?: unknown): boolean {
+    if (LogLevel[this.logLevel] > LogLevel.DEBUG) {
+      return false;
+    }
+    Logger.handleLogFunction(body, console.debug, params);
+    return true;
   }
-  handleLogFunction(body, console.warn, params);
-};
 
-export const error = (body: unknown, params?: unknown): void => {
-  if (LogLevel[globalLevel] > LogLevel.ERROR) {
-    return;
+  public info(body: unknown, params?: unknown): boolean {
+    if (LogLevel[this.logLevel] > LogLevel.INFO) {
+      return false;
+    }
+    Logger.handleLogFunction(body, console.info, params);
+    return true;
   }
-  handleLogFunction(body, console.error, params);
-};
 
-export const handleLogFunction = (body: unknown, method: (b: unknown, p?: unknown) => unknown, params?: unknown): void => {
-  if (params) {
-    method(body, params);
+  public warn(body: unknown, params?: unknown): boolean {
+    if (LogLevel[this.logLevel] > LogLevel.WARN) {
+      return false;
+    }
+    Logger.handleLogFunction(body, console.warn, params);
+    return true;
   }
-  method(body);
-};
+
+  public error(body: unknown, params?: unknown): boolean {
+    if (LogLevel[this.logLevel] > LogLevel.ERROR) {
+      return false;
+    }
+    Logger.handleLogFunction(body, console.error, params);
+    return true;
+  }
+
+  static handleLogFunction(
+    body: unknown,
+    method: (b: unknown, p?: unknown) => unknown,
+    params?: unknown,
+  ): void {
+    if (params) {
+      method(body, params);
+    }
+    method(body);
+  }
+}
+
+export const log = new Logger(globalLevel);

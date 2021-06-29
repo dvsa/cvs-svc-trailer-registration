@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Request, Response, NextFunction } from 'express';
 import * as domain from '../../domain';
-import { warn, debug } from '../../utils/logger';
+import { log } from '../../utils/logger';
 import { deregisterTrailerValidator } from '../validators/deregister-trailer-validator';
 import { TrailerRegistrationBase } from './trailer-registration-base';
 import * as usecase from '../../app';
@@ -27,7 +27,7 @@ export class DeregisterTrailer extends TrailerRegistrationBase {
       const { reasonForDeregistration, deregisterDate } = deregisterTrailer;
       let existingTrailerRegistration = await this.getExistingTrailerRegistrationByTrn(trn);
       if (!existingTrailerRegistration) {
-        warn(`record not found for ${trn}`);
+        log.warn(`record not found for ${trn}`);
         res.status(204).send();
         return;
       }
@@ -42,7 +42,7 @@ export class DeregisterTrailer extends TrailerRegistrationBase {
       const result = await this.dao.upsertTrailerRegistration(existingTrailerRegistration);
       res.status(200).send(result);
     } catch (error) {
-      debug('deregister failed for', req.body);
+      log.debug('deregister failed for', req.body);
       next(new domain.HTTPError(500, error));
     }
   }

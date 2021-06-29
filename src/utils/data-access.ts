@@ -5,7 +5,7 @@ import { AWSError } from 'aws-sdk/lib/error';
 import DynamoDB, { DocumentClient, QueryOutput } from 'aws-sdk/clients/dynamodb';
 import { Configurations } from './configuration';
 import * as domain from '../domain';
-import { debug } from './logger';
+import { log } from './logger';
 
 export class DataAccess {
   // private static instance: DataAccess;
@@ -29,7 +29,7 @@ export class DataAccess {
       KeyConditionExpression: options.keyCondition,
       ExpressionAttributeValues: options.expressionAttributeValues,
     };
-    debug('params getbyId', params);
+    log.debug('params getbyId', params);
     return this.docClient.query(params).promise();
   }
 
@@ -70,7 +70,7 @@ export class DataAccess {
     };
     const data = (await this.getById(getParams)) as { Count: number; Items: unknown };
     if (!data || !data.Count) {
-      debug('record not found for', vinOrChassisWithMake);
+      log.debug('record not found for', vinOrChassisWithMake);
       return null;
     }
     return data.Items as domain.TrailerRegistration[];

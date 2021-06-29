@@ -3,7 +3,7 @@ import * as domain from '../../domain';
 import { insertValidator } from '../validators/insert-trailer-validator';
 import { TrailerRegistrationBase } from './trailer-registration-base';
 import * as usecase from '../../app';
-import { debug } from '../../utils/logger';
+import { log } from '../../utils/logger';
 
 export class InsertTrailerRegistration extends TrailerRegistrationBase {
   private validate(payload?: domain.TrailerRegistration): string {
@@ -25,18 +25,19 @@ export class InsertTrailerRegistration extends TrailerRegistrationBase {
     try {
       const existingTrailerRegistration = await this.getTrailerRegistrationByVinOrChassisWithMake(vinOrChassisWithMake);
       if (!existingTrailerRegistration) {
-        debug('existing registration not found for ', vinOrChassisWithMake);
+        log.debug('existing registration not found for ', vinOrChassisWithMake);
         trailerRegistration.vinOrChassisWithMake = vinOrChassisWithMake;
         const result = await this.dao.upsertTrailerRegistration(trailerRegistration);
         res.status(200).send(result);
         return;
       }
-      debug('existing registration found for ', vinOrChassisWithMake);
+      log.debug('existing registration found for ', vinOrChassisWithMake);
       const newTrailerRegistration = usecase.archiveTrailer(trailerRegistration, existingTrailerRegistration);
       const result = await this.dao.upsertTrailerRegistration(newTrailerRegistration);
+      log.debug('result in insert', result);
       res.status(200).send(result);
     } catch (err) {
-      debug('insert failed for', trailerRegistration.vinOrChassisWithMake);
+      log.debug('insert failed for', trailerRegistration.vinOrChassisWithMake);
       next(new domain.HTTPError(500, err));
     }
   }

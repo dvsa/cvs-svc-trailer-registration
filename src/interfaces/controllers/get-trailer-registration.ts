@@ -3,7 +3,7 @@ import * as domain from '../../domain';
 import { getTrailerValidator } from '../validators/get-trailer-registration';
 import { ERRORS, GetTrailerRequest } from '../../domain';
 import { TrailerRegistrationBase } from './trailer-registration-base';
-import { debug } from '../../utils/logger';
+import { log } from '../../utils/logger';
 
 export class GetTrailerRegistration extends TrailerRegistrationBase {
   private validate(payload: GetTrailerRequest): string {
@@ -26,19 +26,19 @@ export class GetTrailerRegistration extends TrailerRegistrationBase {
       const vinOrChassisWithMake = this.defineVinOrChassisWithMake(vin, payload.make);
       const existingTrailerRegistration = await this.getTrailerRegistrationByVinOrChassisWithMake(vinOrChassisWithMake);
       if (!existingTrailerRegistration) {
-        debug('record not found for ', payload);
+        log.debug('record not found for ', payload);
         next(new domain.HTTPError(404, ERRORS.RECORD_NOT_FOUND));
         return;
       }
       if (existingTrailerRegistration.deregisterDate) {
-        debug('deregistered record found for', payload);
+        log.debug('deregistered record found for', payload);
         next(new domain.HTTPError(404, ERRORS.RECORD_NOT_FOUND));
         return;
       }
       delete existingTrailerRegistration.archive;
       res.status(200).send(existingTrailerRegistration);
     } catch (err) {
-      debug('failed during get request for', payload);
+      log.debug('failed during get request for', payload);
       next(new domain.HTTPError(500, err));
     }
   }
