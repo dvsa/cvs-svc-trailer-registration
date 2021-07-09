@@ -1,0 +1,7 @@
+{
+  "stage": "local",
+  "resource": "/local/{proxy}",
+  "httpMethod": "POST",
+  "path": "/v1/trailers",
+  "body": "'{ \"vin\": \"GRDM9020JJ007804\", \"make\": \"Doepker Industries\", \"trn\": \"A1234567145\",\"certificateExpiryDate\": \"2022-04-14T15:49:30.881Z\",\"certificateIssueDate\": \"2021-04-14T15:49:30.881Z\"}'"
+}
