@@ -24,7 +24,7 @@
     "test:integration": "cross-env NODE_ENV=test jest tests/integration",
     "test:integration:watch": "npm run test:integration -- --watch",
     "test:integration:coverage": "cross-env npm run test:integration -- --coverage",
-    "test": "npm-run-all lint test:unit:coverage",
+    "test": "npm-run-all test:unit:coverage",
     "audit": "npm audit",
     "lint:analyse": "eslint . --ext js,ts --fix",
     "lint:report": "npm run lint:analyse -- -f json -o reports/eslint/eslint-report.json",
