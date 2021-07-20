@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/await-thenable */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { spawn } from 'child_process';
 
 // We hook to serverless offline when firing its process
@@ -9,7 +8,7 @@ const SERVER_OK = 'server ready: http://localhost:3020';
 // we force throwing an error so we always start from a clean slate if java.io.IOException: Failed to bind to 0.0.0.0/0.0.0.0:8006
 const DYNAMO_LOCAL_ERROR_THREAD = 'Exception in thread "main"';
 
-const setupServer = (process: NodeJS.Process): Promise<NodeJS.ConsoleConstructorOptions> => new Promise((resolve, reject) => {
+const setupServer = (process: NodeJS.Process): Promise<NodeJS.Process> => new Promise((resolve, reject) => {
   process.stdout.setEncoding('utf-8').on('data', (stream: [string]) => {
     // last message emitted by webpack once the server is up and running
     if (stream.includes(SERVER_OK)) {
@@ -25,7 +24,7 @@ const setupServer = (process: NodeJS.Process): Promise<NodeJS.ConsoleConstructor
     reject(stream);
   });
 
-  process.on('error', (err: Error) => {
+  process.on('error', (err: string) => {
     console.log('\nSomething wrong happened :(\n\n');
     console.error(`err: ${err}`);
     reject(err);
@@ -41,7 +40,7 @@ const server = spawn('npm', ['run', 'start']);
 module.exports = async (): Promise<void> => {
   console.log('\nSetting up Integration tests...\n\n');
   try {
-    await setupServer(server);
+    await setupServer(server as any);
   } catch (e) {
     console.error('Something wrong happened:\n');
     console.error(e);
