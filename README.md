@@ -8,6 +8,19 @@ The project runs on node 10.x with typescript and serverless framework. For furt
 [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) is used to managed node versions and configuration explicitly done per project using an `.npmrc` file. You may need to install dynamoDB as well using the following command:
 - `node_modules/.bin/sls dynamodb install`
 
+## Architecture
+
+Please refer to the the [docs](./docs/README.md) for the API specification and samples of postman requests.
+
+### End to end design
+
+[All in one view](https://wiki.dvsacloud.uk/pages/viewpage.action?pageId=79254695)
+
+### Trailer registration
+
+[Further details about this micro service](https://wiki.dvsacloud.uk/display/HVT/Trailer+Registrations).
+
+
 ## Running the project
 
 Once the dependencies are installed, you will be required to rename the `/config/env.example` file to `.env.local` as we use dotenv files for configuration for local local development for example. Further information about [variables](https://www.serverless.com/framework/docs/providers/aws/guide/variables/) and [environment variables](https://www.serverless.com/framework/docs/environment-variables/) with serverless.
