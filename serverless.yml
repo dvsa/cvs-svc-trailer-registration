@@ -1,7 +1,6 @@
 # https://github.com/serverless/serverless/blob/master/docs/providers/aws/guide/functions.md
 service: cvs-svc-trailer-registration
 useDotenv: true
-
 # Create an optimized package for our Functions
 # This file has 2 purposes:
 # - used to mock API Gateway so that we can work locally (with serverless-offline)
@@ -23,6 +22,7 @@ plugins:
   - serverless-offline
 
 provider:
+  lambdaHashingVersion: '20201221'
   name: aws
   runtime: nodejs10.x
   apiGateway:

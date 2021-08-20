@@ -16,7 +16,7 @@ export class InsertTrailerRegistration implements IRequestHandler {
     return errors?.message;
   }
 
-  public async call(req: Request, res: Response, next: NextFunction) {
+  public async call(req: Request, res: Response, next: NextFunction): Promise<Response | Error> {
     const trailerRegistration = req.body as domain.TrailerRegistration;
     const errors = this.validate(trailerRegistration);
     if (errors) {

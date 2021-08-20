@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "df33ea04-b90a-4ec9-a2cf-4d25bb495703",
+		"name": "trailer-registration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "insert trailer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api_key}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"vin\": \"somevinhere\",\n    \"make\": \"make\",\n    \"trn\": \"some-trn\",\n    \"certificateExpiryDate\": \"2022-01-01\",\n    \"certificateIssueDate\": \"2021-01-02\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.{{api}}.cvs.dvsacloud.uk/{{branch}}/v1/trailers",
+					"protocol": "https",
+					"host": [
+						"api",
+						"{{api}}",
+						"cvs",
+						"dvsacloud",
+						"uk"
+					],
+					"path": [
+						"{{branch}}",
+						"v1",
+						"trailers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
