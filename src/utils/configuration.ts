@@ -44,6 +44,6 @@ export class Configurations {
     if (this.branch === 'local') {
       return 'DEBUG';
     }
-    return process.env.LOG_LEVEL || 'WARN';
+    return process.env.LOG_LEVEL || 'DEBUG';
   }
 }
