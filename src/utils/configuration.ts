@@ -31,7 +31,7 @@ export class Configurations {
     const dbParams = {
       region: this.awsRegion,
       endpoint: process.env.DYNAMO_ENDPOINT || 'http://localhost:8020',
-      convertEmptyValues: process.env.CONVERT_EMPTY_VALUES || true,
+      convertEmptyValues: true,
     };
     if (this.branch !== 'local') {
       delete dbParams.endpoint;
@@ -40,7 +40,10 @@ export class Configurations {
     return dbParams;
   }
 
-  get GlobalLogLevel(): string {
-    return process.env.LOG_LEVEL || 'WARN';
+  get globalLogLevel(): string {
+    if (this.branch === 'local') {
+      return 'DEBUG';
+    }
+    return process.env.LOG_LEVEL || 'DEBUG';
   }
 }

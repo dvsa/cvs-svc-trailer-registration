@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import { emptyDatabase, populateDatabase } from '../utils/dbUtil';
 import * as domain from '../../src/domain';
-import * as trailerRegistrations from '../../data/trailer-registration.json';
+import * as trailerRegistrations from '../resources/trailer-registration.json';
 
 const url = 'http://localhost:3020/local';
 const request = supertest(url);
@@ -54,6 +54,7 @@ describe('deregister trailer', () => {
 
     const response = await request.put(`${requestUrl}/${trn}`).send(payload);
     const deRegistered = response.body as domain.TrailerRegistration;
+    console.log('deregistered', deRegistered);
     expect(response.status).toEqual(200);
     expect(deRegistered.vinOrChassisWithMake).toEqual(expectedResponse.vinOrChassisWithMake);
     expect(deRegistered.reasonForDeregistration).toEqual(expectedResponse.reasonForDeregistration);
@@ -90,6 +91,7 @@ describe('deregister trailer', () => {
 
     const response = await request.put(`${requestUrl}/${trn}`).send(payload);
     const deRegistered = response.body as domain.TrailerRegistration;
+    console.log(deRegistered);
     expect(response.status).toEqual(200);
     expect(deRegistered.vinOrChassisWithMake).toEqual(expectedResponse.vinOrChassisWithMake);
     expect(deRegistered.reasonForDeregistration).toEqual(expectedResponse.reasonForDeregistration);

@@ -1,7 +1,7 @@
 export enum ERRORS {
   INTERNAL_SERVER_ERROR = 'Internal Server Error',
   MULTIPLE_REGISTRATIONS = 'Multiple registrations found',
-  RECORD_NOT_FOUND = '',
+  RECORD_NOT_FOUND = 'No data found',
 }
 
 export enum MESSAGES {
