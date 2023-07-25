@@ -26,7 +26,7 @@ const setupServer = (process: NodeJS.Process): Promise<NodeJS.Process> => new Pr
   process.on('error', (err: string) => {
     console.log('\nSomething wrong happened :(\n\n');
     console.error(`err: ${err}`);
-    // reject(err);
+    reject(err);
   });
 
   process.on('exit', (code: number, signal: string) => {

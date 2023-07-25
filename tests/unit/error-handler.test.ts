@@ -33,7 +33,7 @@ describe('Insert Trailer Controller', () => {
         (mockResponse as unknown) as express.Response,
         mockNext,
       );
-      expect(mockResponse.statusCode).toEqual(500);
+      expect(mockResponse.statusCode).toBe(500);
       expect(mockResponse.body).toEqual(ERRORS.INTERNAL_SERVER_ERROR);
     });
 
@@ -47,7 +47,7 @@ describe('Insert Trailer Controller', () => {
         (mockResponse as unknown) as express.Response,
         mockNext,
       );
-      expect(mockResponse.statusCode).toEqual(400);
+      expect(mockResponse.statusCode).toBe(400);
       expect(mockResponse.body).toEqual(errorMessage);
     });
   });

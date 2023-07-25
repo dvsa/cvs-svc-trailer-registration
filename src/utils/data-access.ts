@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { PromiseResult } from 'aws-sdk/lib/request';
-import { AWSError } from 'aws-sdk/lib/error';
 import DynamoDB, { DocumentClient, QueryOutput } from 'aws-sdk/clients/dynamodb';
-import { Configurations } from './configuration';
+import { AWSError } from 'aws-sdk/lib/error';
+import { PromiseResult } from 'aws-sdk/lib/request';
 import * as domain from '../domain';
+import { Configurations } from './configuration';
 import { log } from './logger';
 
 export class DataAccess {
@@ -128,9 +128,11 @@ export class DataAccess {
   }
 
   public batchWrite(params): Promise<PromiseResult<DocumentClient.BatchWriteItemOutput, AWSError>> {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return this.docClient.batchWrite(params).promise();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public generateBatchWritePartialParams(): any {
     return {
       RequestItems: {

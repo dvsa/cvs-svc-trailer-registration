@@ -16,8 +16,8 @@ describe('API', () => {
       };
 
       const result = await supertest(app).post('/v1/trailers').send(payload);
-      expect(result.status).toEqual(400);
-      expect(result.text).toEqual('"trn" is required');
+      expect(result.status).toBe(400);
+      expect(result.text).toBe('"trn" is required');
     });
   });
 
@@ -28,7 +28,7 @@ describe('API', () => {
       };
 
       const result = await supertest(app).put('/v1/trailers/deregister/ABC123').send(payload);
-      expect(result.status).toEqual(400);
+      expect(result.status).toBe(400);
     });
   });
 });

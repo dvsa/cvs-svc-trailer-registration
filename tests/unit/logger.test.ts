@@ -15,7 +15,7 @@ describe('logger', () => {
       const logger = new Logger('DEBUG');
       const result = logger.debug('debug is called');
 
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
 
     test('should return true when log level is less than debug', () => {
@@ -23,7 +23,7 @@ describe('logger', () => {
 
       const result = logger.debug('debug is called');
 
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
 
     test('should return false when log level is greater than debug', () => {
@@ -31,7 +31,7 @@ describe('logger', () => {
 
       const result = logger.debug('debug is called');
 
-      expect(result).toEqual(false);
+      expect(result).toBe(false);
     });
   });
 
@@ -40,7 +40,7 @@ describe('logger', () => {
       const logger = new Logger('TRACE');
       const result = logger.trace('trace is called');
 
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
 
     test('should return false when log level is greater than trace', () => {
@@ -48,7 +48,7 @@ describe('logger', () => {
 
       const result = logger.trace('trace is called');
 
-      expect(result).toEqual(false);
+      expect(result).toBe(false);
     });
   });
 
@@ -57,7 +57,7 @@ describe('logger', () => {
       const logger = new Logger('INFO');
       const result = logger.info('info is called');
 
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
 
     test('should return true when log level is less than info', () => {
@@ -65,7 +65,7 @@ describe('logger', () => {
 
       const result = logger.info('info is called');
 
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
 
     test('should return false when log level is greater than debug', () => {
@@ -73,7 +73,7 @@ describe('logger', () => {
 
       const result = logger.info('debug is called');
 
-      expect(result).toEqual(false);
+      expect(result).toBe(false);
     });
   });
 
@@ -82,7 +82,7 @@ describe('logger', () => {
       const logger = new Logger('WARN');
       const result = logger.warn('warn is called');
 
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
 
     test('should return true when log level is less than warn', () => {
@@ -90,7 +90,7 @@ describe('logger', () => {
 
       const result = logger.warn('warn is called');
 
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
 
     test('should return false when log level is greater than debug', () => {
@@ -98,7 +98,7 @@ describe('logger', () => {
 
       const result = logger.warn('warn is called');
 
-      expect(result).toEqual(false);
+      expect(result).toBe(false);
     });
   });
 
@@ -107,7 +107,7 @@ describe('logger', () => {
       const logger = new Logger('ERROR');
       const result = logger.error('error is called');
 
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
 
     test('should return true when log level is less than error', () => {
@@ -115,7 +115,7 @@ describe('logger', () => {
 
       const result = logger.error('error is called');
 
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
   });
 });

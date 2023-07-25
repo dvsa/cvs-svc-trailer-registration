@@ -1,11 +1,11 @@
+import * as express from 'express';
 import { Request } from 'jest-express/lib/request';
 import { Response } from 'jest-express/lib/response';
-import * as express from 'express';
 import * as domain from '../../src/domain';
-import { DataAccess } from '../../src/utils/data-access';
 import { InsertTrailerRegistration } from '../../src/interfaces/controllers/insert-trailer-registration';
+import { DataAccess } from '../../src/utils/data-access';
 
-// eslint-disable-next-line global-require
+// eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-return
 jest.mock('express', () => require('jest-express'));
 describe('Insert Trailer Controller', () => {
   let mockRequest: Request;
@@ -29,7 +29,7 @@ describe('Insert Trailer Controller', () => {
   });
 
   describe('insertTrailerRegistration', () => {
-    test('should insert and call 200 status with valid payload ', async () => {
+    test('should insert and call 200 status with valid payload', async () => {
       const payload = {
         vin: 'ABC1321234566',
         make: 'big truck',
@@ -59,7 +59,7 @@ describe('Insert Trailer Controller', () => {
         (mockResponse as unknown) as express.Response,
         mockNext,
       );
-      expect(mockResponse.statusCode).toEqual(200);
+      expect(mockResponse.statusCode).toBe(200);
       expect(mockResponse.body).toEqual(expectedResult);
     });
 
@@ -102,7 +102,7 @@ describe('Insert Trailer Controller', () => {
         (mockResponse as unknown) as express.Response,
         mockNext,
       );
-      expect(mockResponse.statusCode).toEqual(200);
+      expect(mockResponse.statusCode).toBe(200);
       expect(mockResponse.body).toEqual(expectedResult);
     });
 
