@@ -17,8 +17,16 @@ plugins:
   - serverless-dynamodb-local
   # https://github.com/serverless-heaven/serverless-webpack#usage-with-serverless-offline
   - serverless-offline
+  - serverless-webpack
 
 provider:
+  webpack:
+    webpackConfig: './scripts/webpack.config.js'
+    keepOutputDirectory: false
+    # can be toggled depending on env and .env files configuration
+    includeModules: true # Node modules configuration for packaging, TBC whether we need the node_modules or 'inject' them when hosted on S3
+    packager: 'npm' # Packager that will be used to package your external modules
+    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
   profile: ${env:AWS_PROVIDER_PROFILE, 'default'}
   name: aws
   runtime: nodejs18.x
