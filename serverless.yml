@@ -28,8 +28,6 @@ provider:
   stage: ${env:AWS_PROVIDER_STAGE, 'local'}
   region: ${env:AWS_PROVIDER_REGION, 'eu-west-2'}
   environment:
-    SERVICE_VERSION: ${env:API_VERSION}
-    AWS_PROVIDER_REGION: ${self:provider.region}
     SERVICE: trailers
 
 functions:
