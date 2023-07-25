@@ -1,6 +1,5 @@
 # https://github.com/serverless/serverless/blob/master/docs/providers/aws/guide/functions.md
 service: cvs-svc-trailer-registration
-useDotenv: true
 # Create an optimized package for our Functions
 # This file has 2 purposes:
 # - used to mock API Gateway so that we can work locally (with serverless-offline)
@@ -14,7 +13,6 @@ package:
     - src/handler.ts
 
 plugins:
-  - serverless-dotenv-plugin
   # https://github.com/serverless-heaven/serverless-webpack/tree/master/examples
   - serverless-webpack
   - serverless-dynamodb-local
@@ -22,15 +20,17 @@ plugins:
   - serverless-offline
 
 provider:
-  lambdaHashingVersion: '20201221'
+  profile: ${env:AWS_PROVIDER_PROFILE, 'default'}
   name: aws
   runtime: nodejs18.x
   apiGateway:
     # https://www.serverless.com/framework/docs/deprecations/#LOAD_VARIABLES_FROM_ENV_FILES
     shouldStartNameWithService: true
-  stage: local
-
+  stage: ${env:AWS_PROVIDER_STAGE, 'local'}
+  region: ${env:AWS_PROVIDER_REGION, 'eu-west-2'}
   environment:
+    SERVICE_VERSION: ${env:API_VERSION}
+    AWS_PROVIDER_REGION: ${self:provider.region}
     SERVICE: trailers
 
 functions:
@@ -39,8 +39,8 @@ functions:
     handler: src/handler.handler
     events:
       - http: ANY /
-      - http: 'ANY /{proxy+}'
       # We will proxy version from here in the client to match the API specs e.g. <stage>/**/*/<service>
+      - http: 'ANY /{proxy+}'
   # Can also define specific functions on exposed routes using pattern matching, see below as example:
   # handler.ts containing exported getHello function is exposed on path /hello
   # that you can test locally sls invoke local -f getHello -d '{"path": "hello"}' or with sls offline
@@ -49,8 +49,6 @@ functions:
   #   events:
   #     - http: 'GET /hello'
 custom:
-  dotenv:
-    basePath: './config/'
   webpack:
     webpackConfig: './scripts/webpack.config.js'
     keepOutputDirectory: false
