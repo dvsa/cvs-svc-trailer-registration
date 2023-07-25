@@ -17,7 +17,6 @@ const setupServer = (process: NodeJS.Process): Promise<NodeJS.Process> => new Pr
   });
 
   process.stderr.setEncoding('utf-8').on('data', (stream: [string]) => {
-    console.log(stream);
     if (stream.includes(DYNAMO_LOCAL_ERROR_THREAD)) {
       throw new Error('Internal Java process crashed');
     }
@@ -31,7 +30,9 @@ const setupServer = (process: NodeJS.Process): Promise<NodeJS.Process> => new Pr
   });
 
   process.on('exit', (code: number, signal: string) => {
-    console.info(`process terminated with code: ${code} and signal: ${signal}`);
+    if (code !== 137) {
+      console.info(`process terminated with code: ${code} and signal: ${signal}`);
+    }
   });
 });
 
