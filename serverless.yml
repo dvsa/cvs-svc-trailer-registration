@@ -24,7 +24,7 @@ plugins:
 provider:
   lambdaHashingVersion: '20201221'
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs18.x
   apiGateway:
     # https://www.serverless.com/framework/docs/deprecations/#LOAD_VARIABLES_FROM_ENV_FILES
     shouldStartNameWithService: true
