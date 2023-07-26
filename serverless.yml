@@ -68,6 +68,7 @@ custom:
       migrate: true
       seed: true
       noStart: false
+      host: 127.0.0.1
     seed:
       trailer-registration:
         sources:
