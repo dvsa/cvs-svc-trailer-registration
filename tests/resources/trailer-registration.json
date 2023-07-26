@@ -1,38 +1,38 @@
 [
-    { 
-        "vinOrChassisWithMake": "GRDM9020JJ0078044",
-        "vin": "GRDM9020JJ0078044", 
-        "make": "Doepker Industries", 
-        "trn": "A1234567",
-        "certificateExpiryDate": "2022-04-14T15:49:30.881Z",
-        "certificateIssueDate": "2021-04-14T15:49:30.881Z",
-        "reasonForDeregistration": null,
-        "deregisterDate": null
-    },
-    { 
-        "vinOrChassisWithMake": "QWGR329020JJ00120",
-        "vin": "QWGR329020JJ00120", 
-        "make": "Doepker Industries", 
-        "trn": "VV934567",
-        "certificateExpiryDate": "2022-03-14T15:49:30.881Z",
-        "certificateIssueDate": "2021-03-14T15:49:30.881Z",
-        "reasonForDeregistration": null,
-        "deregisterDate": null
-    },
-    {
-        "vinOrChassisWithMake":"ABC9020JJ00780464",
-        "vin":"ABC9020JJ00780464",
-        "make":"Some Industries",
-        "trn":"AB127861",
-        "certificateExpiryDate":"2022-04-14T15:49:30.881Z",
-        "certificateIssueDate":"2021-04-14T15:49:30.881Z"
-     },
-    {
-        "vinOrChassisWithMake":"ABC123",
-        "vin":"ABC123",
-        "make":"Some Industries",
-        "trn":"AB123991",
-        "certificateExpiryDate":"2021-12-14T15:49:30.881Z",
-        "certificateIssueDate":"2020-04-14T15:49:30.881Z"
-     }
+  {
+    "vinOrChassisWithMake": "GRDM9020JJ0078044",
+    "vin": "GRDM9020JJ0078044",
+    "make": "Doepker Industries",
+    "trn": "A1234567",
+    "certificateExpiryDate": "2022-04-14T15:49:30.881Z",
+    "certificateIssueDate": "2021-04-14T15:49:30.881Z",
+    "reasonForDeregistration": null,
+    "deregisterDate": null
+  },
+  {
+    "vinOrChassisWithMake": "QWGR329020JJ00120",
+    "vin": "QWGR329020JJ00120",
+    "make": "Doepker Industries",
+    "trn": "VV934567",
+    "certificateExpiryDate": "2022-03-14T15:49:30.881Z",
+    "certificateIssueDate": "2021-03-14T15:49:30.881Z",
+    "reasonForDeregistration": null,
+    "deregisterDate": null
+  },
+  {
+    "vinOrChassisWithMake": "ABC9020JJ00780464",
+    "vin": "ABC9020JJ00780464",
+    "make": "Some Industries",
+    "trn": "AB127861",
+    "certificateExpiryDate": "2022-04-14T15:49:30.881Z",
+    "certificateIssueDate": "2021-04-14T15:49:30.881Z"
+  },
+  {
+    "vinOrChassisWithMake": "ABC123Some Industries",
+    "vin": "ABC123",
+    "make": "Some Industries",
+    "trn": "AB123991",
+    "certificateExpiryDate": "2021-12-14T15:49:30.881Z",
+    "certificateIssueDate": "2020-04-14T15:49:30.881Z"
+  }
 ]
