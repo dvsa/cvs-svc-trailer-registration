@@ -1,11 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // eslint-disable-next-line import/no-import-module-exports
 import { spawn } from 'child_process';
-// process.on('error', (err: string) => {
-//   console.log('\nSomething wrong happened :(\n\n');
-//   console.error(`err: ${err}`);
-//   reject(err);
-// });
 
 // We hook to serverless offline when firing its process
 const SERVER_OK = 'localhost:3020';
@@ -18,6 +13,7 @@ const setupServer = () => new Promise<void>((resolve, reject) => {
   const server = spawn('npm', ['run', 'start']);
   server.stdout.setEncoding('utf-8').on('data', (stream: string[]) => {
     if (stream.includes(SERVER_OK)) {
+      // For some reason we have to ts-ignore here, even though Promise is typed as void
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       resolve();
@@ -38,7 +34,7 @@ module.exports = async (): Promise<void> => {
   try {
     await setupServer();
   } catch (e) {
-    console.error('Something wrong happened: 2\n');
+    console.error('Something wrong happened: \n');
     console.error(e);
     process.exit(1);
   }
