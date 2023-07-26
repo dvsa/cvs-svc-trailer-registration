@@ -6,4 +6,3 @@ node_modules
 **/*.js
 .build,
 jest.config.ts
-scripts

@@ -14,10 +14,10 @@ package:
     - src/handler.ts
 
 plugins:
-  - serverless-dotenv-plugin
+  # - serverless-dotenv-plugin
   # https://github.com/serverless-heaven/serverless-webpack/tree/master/examples
   - serverless-webpack
-  - serverless-dynamodb-local
+  - serverless-dynamodb
   # https://github.com/serverless-heaven/serverless-webpack#usage-with-serverless-offline
   - serverless-offline
 
@@ -48,8 +48,8 @@ functions:
   #   events:
   #     - http: 'GET /hello'
 custom:
-  dotenv:
-    basePath: './config/'
+  # dotenv:
+  #   basePath: './config/'
   webpack:
     webpackConfig: './scripts/webpack.config.js'
     keepOutputDirectory: false
@@ -61,7 +61,7 @@ custom:
   serverless-offline:
     httpPort: 3020
     lambdaPort: 3021
-  dynamodb:
+  serverless-dynamodb:
     start:
       port: 8020
       inMemory: true
