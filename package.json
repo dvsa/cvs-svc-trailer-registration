@@ -20,7 +20,7 @@
     "test:unit": "cross-env NODE_ENV=test SERVICE=${npm_package_name} API_VERSION=${npm_package_version} jest tests/unit",
     "test:unit:watch": "npm run test:unit -- --watch",
     "test:unit:coverage": "cross-env npm run test:unit -- --coverage",
-    "test-i": "AWS_SDK_JS_SUPPRESS_MAINTENANCE_MODE_MESSAGE=1 npm run test:integration -- --globalSetup='./scripts/setup.ts' --globalTeardown='./scripts/teardown.ts'",
+    "test-i": "NODE_ENV=local npm run test:integration -- --globalSetup='./scripts/setup.ts' --globalTeardown='./scripts/teardown.ts'",
     "test:integration": "cross-env NODE_ENV=test jest tests/integration",
     "test:integration:watch": "npm run test:integration -- --watch",
     "test:integration:coverage": "cross-env npm run test:integration -- --coverage",
