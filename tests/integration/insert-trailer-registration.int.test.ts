@@ -38,7 +38,7 @@ describe('insert trailer registration', () => {
     const requestUrl = '/v1/trailers';
     const response = await request.post(requestUrl).send(payload);
     const insertedTrailer = response.body as domain.TrailerRegistration;
-    expect(response.status).toEqual(200);
+    expect(response.status).toBe(200);
     expect(insertedTrailer.vin).toEqual(expectedResponse.vin);
     expect(insertedTrailer.vinOrChassisWithMake).toEqual(expectedResponse.vin);
   });
@@ -52,7 +52,7 @@ describe('insert trailer registration', () => {
     const requestUrl = '/v1/trailers';
     const response = await request.post(requestUrl).send(payload);
     const insertedTrailer = response.body as domain.TrailerRegistration;
-    expect(response.status).toEqual(200);
+    expect(response.status).toBe(200);
     expect(insertedTrailer.vin).toEqual(expectedResponse.vin);
     expect(insertedTrailer.vinOrChassisWithMake).toEqual(expectedResponse.vinOrChassisWithMake);
   });
@@ -65,8 +65,8 @@ describe('insert trailer registration', () => {
     delete payload.trn;
     const requestUrl = '/v1/trailers';
     const response = await request.post(requestUrl).send(payload);
-    expect(response.status).toEqual(400);
-    expect(response.text).toEqual('"trn" is required');
+    expect(response.status).toBe(400);
+    expect(response.text).toBe('"trn" is required');
   });
 
   test('should archive existing registration and return 200 for a valid payload for an existing vin', async () => {
@@ -110,7 +110,7 @@ describe('insert trailer registration', () => {
     const requestUrl = '/v1/trailers';
     const response = await request.post(requestUrl).send(payload);
     const insertedTrailer = response.body as domain.TrailerRegistration;
-    expect(response.status).toEqual(200);
+    expect(response.status).toBe(200);
     expect(insertedTrailer.vinOrChassisWithMake).toEqual(expectedResponse.vin);
     expect(insertedTrailer.archive).toEqual(expectedResponse.archive);
   });

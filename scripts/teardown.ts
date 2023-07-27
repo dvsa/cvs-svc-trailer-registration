@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-import-module-exports
 import { killTestSetup } from './destroyServices';
 
 module.exports = async () => {
@@ -12,7 +13,6 @@ module.exports = async () => {
   try {
     await killTestSetup();
     console.log('processes killed');
-    process.exit(0);
   } catch (e) {
     console.log('Can not kill processes');
     console.error(e);

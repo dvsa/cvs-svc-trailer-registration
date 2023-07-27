@@ -1,11 +1,11 @@
+import * as express from 'express';
 import { Request } from 'jest-express/lib/request';
 import { Response } from 'jest-express/lib/response';
-import * as express from 'express';
 import * as domain from '../../src/domain';
 import * as controllers from '../../src/interfaces/controllers';
 import { DataAccess } from '../../src/utils/data-access';
 
-// eslint-disable-next-line global-require
+// eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-return
 jest.mock('express', () => require('jest-express'));
 describe('Deregister Trailer Controller', () => {
   let mockRequest: Request;
@@ -59,7 +59,7 @@ describe('Deregister Trailer Controller', () => {
         (mockResponse as unknown) as express.Response,
         mockNext,
       );
-      expect(mockResponse.statusCode).toEqual(200);
+      expect(mockResponse.statusCode).toBe(200);
       expect(mockResponse.body).toEqual(expectedResult);
     });
 
@@ -80,7 +80,7 @@ describe('Deregister Trailer Controller', () => {
         (mockResponse as unknown) as express.Response,
         mockNext,
       );
-      expect(mockResponse.statusCode).toEqual(204);
+      expect(mockResponse.statusCode).toBe(204);
     });
 
     test('should call next if validation fails', async () => {

@@ -55,7 +55,7 @@ describe('deregister trailer', () => {
     const response = await request.put(`${requestUrl}/${trn}`).send(payload);
     const deRegistered = response.body as domain.TrailerRegistration;
     console.log('deregistered', deRegistered);
-    expect(response.status).toEqual(200);
+    expect(response.status).toBe(200);
     expect(deRegistered.vinOrChassisWithMake).toEqual(expectedResponse.vinOrChassisWithMake);
     expect(deRegistered.reasonForDeregistration).toEqual(expectedResponse.reasonForDeregistration);
   });
@@ -92,7 +92,7 @@ describe('deregister trailer', () => {
     const response = await request.put(`${requestUrl}/${trn}`).send(payload);
     const deRegistered = response.body as domain.TrailerRegistration;
     console.log(deRegistered);
-    expect(response.status).toEqual(200);
+    expect(response.status).toBe(200);
     expect(deRegistered.vinOrChassisWithMake).toEqual(expectedResponse.vinOrChassisWithMake);
     expect(deRegistered.reasonForDeregistration).toEqual(expectedResponse.reasonForDeregistration);
     expect(deRegistered.deregisterDate).toEqual(expectedResponse.deregisterDate);
@@ -106,8 +106,8 @@ describe('deregister trailer', () => {
     };
 
     const response = await request.put(`${requestUrl}/${trn}`).send(payload);
-    expect(response.status).toEqual(400);
-    expect(response.text).toEqual('"reasonForDeregistration" is required');
+    expect(response.status).toBe(400);
+    expect(response.text).toBe('"reasonForDeregistration" is required');
   });
 
   test('should return 204 when payload is valid but trn is not found', async () => {
@@ -119,6 +119,6 @@ describe('deregister trailer', () => {
     };
 
     const response = await request.put(`${requestUrl}/${trn}`).send(payload);
-    expect(response.status).toEqual(204);
+    expect(response.status).toBe(204);
   });
 });

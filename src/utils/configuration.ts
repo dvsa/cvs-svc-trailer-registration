@@ -30,12 +30,16 @@ export class Configurations {
   get dynamoParams(): unknown {
     const dbParams = {
       region: this.awsRegion,
-      endpoint: process.env.DYNAMO_ENDPOINT || 'http://localhost:8020',
+      endpoint: process.env.DYNAMO_ENDPOINT || 'http://127.0.1:8020',
       convertEmptyValues: true,
+      accessKeyId: 'foo',
+      secretAccessKey: 'bar',
     };
     if (this.branch !== 'local') {
       delete dbParams.endpoint;
       delete dbParams.region;
+      delete dbParams.accessKeyId;
+      delete dbParams.secretAccessKey;
     }
     return dbParams;
   }

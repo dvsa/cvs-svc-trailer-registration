@@ -1,12 +1,12 @@
+import * as express from 'express';
 import { Request } from 'jest-express/lib/request';
 import { Response } from 'jest-express/lib/response';
-import * as express from 'express';
 import * as domain from '../../src/domain';
-import { DataAccess } from '../../src/utils/data-access';
-import { GetTrailerRegistration } from '../../src/interfaces/controllers/get-trailer-registration';
 import { TrailerRegistration } from '../../src/domain/trailer-registration';
+import { GetTrailerRegistration } from '../../src/interfaces/controllers/get-trailer-registration';
+import { DataAccess } from '../../src/utils/data-access';
 
-// eslint-disable-next-line global-require
+// eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-return
 jest.mock('express', () => require('jest-express'));
 describe('Get Trailer Registration Controller', () => {
   let mockRequest: Request;
@@ -53,7 +53,7 @@ describe('Get Trailer Registration Controller', () => {
         (mockResponse as unknown) as express.Response,
         mockNext,
       );
-      expect(mockResponse.statusCode).toEqual(200);
+      expect(mockResponse.statusCode).toBe(200);
       expect(mockResponse.body).toEqual(expectedResult);
     });
     test('should return a status code 200 and a trailer registration when a valid non 17 digit vin and make is provided', async () => {
@@ -79,7 +79,7 @@ describe('Get Trailer Registration Controller', () => {
         (mockResponse as unknown) as express.Response,
         mockNext,
       );
-      expect(mockResponse.statusCode).toEqual(200);
+      expect(mockResponse.statusCode).toBe(200);
       expect(mockResponse.body).toEqual(expectedResult);
     });
 

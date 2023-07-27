@@ -42,7 +42,7 @@ describe('DataAccess', () => {
       mockDAO.getById = daoStub;
 
       const result = await mockDAO.getByVinOrChassisWithMake('AB123ADbigtruck');
-      expect(result).toEqual(null);
+      expect(result).toBeNull();
     });
   });
 });
@@ -79,7 +79,7 @@ describe('getByTrn', () => {
     mockDAO.getById = daoStub;
 
     const result = await mockDAO.getByTrn('AB123AD');
-    expect(result).toEqual(null);
+    expect(result).toBeNull();
   });
 });
 describe('upsertTrailerRegistration', () => {

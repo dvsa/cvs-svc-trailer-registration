@@ -24,7 +24,7 @@ describe('Application entry', () => {
       } as unknown) as APIGatewayProxyEvent;
 
       const response = await handler(event, context);
-      expect(response.statusCode).toEqual(400);
+      expect(response.statusCode).toBe(400);
     });
   });
 });

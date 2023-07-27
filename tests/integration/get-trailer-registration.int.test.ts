@@ -27,7 +27,7 @@ describe('insert trailer registration', () => {
     const requestUrl = `/v1/trailers/${expectedResponse.vin}?make=${expectedResponse.make}`;
     const response = await request.get(requestUrl);
     const trailerResult = response.body as domain.TrailerRegistration;
-    expect(response.status).toEqual(200);
+    expect(response.status).toBe(200);
     expect(trailerResult.vin).toEqual(expectedResponse.vin);
     expect(trailerResult.vinOrChassisWithMake).toEqual(expectedResponse.vinOrChassisWithMake);
   });
@@ -37,7 +37,7 @@ describe('insert trailer registration', () => {
     const requestUrl = `/v1/trailers/${expectedResponse.vin}?make=${expectedResponse.make}`;
     const response = await request.get(requestUrl);
     const trailerResult = response.body as domain.TrailerRegistration;
-    expect(response.status).toEqual(200);
+    expect(response.status).toBe(200);
     expect(trailerResult.vinOrChassisWithMake).toEqual(expectedResponse.vin + expectedResponse.make);
   });
 
@@ -45,7 +45,7 @@ describe('insert trailer registration', () => {
     const expectedResponse = domain.ERRORS.RECORD_NOT_FOUND;
     const requestUrl = '/v1/trailers/123?make=something';
     const response = await request.get(requestUrl);
-    expect(response.status).toEqual(404);
+    expect(response.status).toBe(404);
     expect(response.text).toEqual(expectedResponse);
   });
 
@@ -53,7 +53,7 @@ describe('insert trailer registration', () => {
     const expectedResponse = '"make" is required';
     const requestUrl = '/v1/trailers/1234';
     const response = await request.get(requestUrl);
-    expect(response.status).toEqual(400);
+    expect(response.status).toBe(400);
     expect(response.text).toEqual(expectedResponse);
   });
 });
