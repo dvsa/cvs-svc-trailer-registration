@@ -64,7 +64,7 @@ jobs:
         run: npm ci
       - name: Run SonarQube scanner
         run: |
-          npm-run-all test:unit:coverage && \
+          npm run test && \
           npm run sonar-scanner -- \
           -Dsonar.host.url=${{ env.SONARQUBE_GHA_URL }} \
           -Dsonar.token=${{ env.SONARQUBE_GHA_TOKEN }} \
