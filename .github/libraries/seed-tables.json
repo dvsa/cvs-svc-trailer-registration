@@ -1,0 +1,6 @@
+[
+  {
+    "table-name": "trailer",
+    "seed-file": "trailer-registration.json"
+  }
+]
