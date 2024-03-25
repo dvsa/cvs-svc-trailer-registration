@@ -8,7 +8,7 @@
   "monorepo": false,
   "dynamo_tables": [
     {
-      "trailer": "trailer-registration.json"
+      "trailer-registration": "trailer-registration.json"
     }
   ]
 }
