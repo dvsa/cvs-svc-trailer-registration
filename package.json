@@ -47,8 +47,10 @@
     "tools-setup": "node_modules/.bin/sls dynamodb install"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "3.556.0",
+    "@aws-sdk/lib-dynamodb": "3.556.0",
+    "@smithy/smithy-client": "2.5.1",
     "aws-lambda": "1.0.7",
-    "aws-sdk": "2.1421.0",
     "dotenv": "16.3.1",
     "express": "4.18.2",
     "jest-express": "1.12.0",
@@ -72,6 +74,7 @@
     "@types/supertest": "2.0.12",
     "@typescript-eslint/eslint-plugin": "6.2.0",
     "@typescript-eslint/parser": "6.2.0",
+    "aws-sdk-client-mock": "4.0.0",
     "clean-webpack-plugin": "4.0.0",
     "commitlint-plugin-function-rules": "2.0.2",
     "concurrently": "8.2.0",
