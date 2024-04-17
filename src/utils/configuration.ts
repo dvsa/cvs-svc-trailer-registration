@@ -32,14 +32,16 @@ export class Configurations {
       region: this.awsRegion,
       endpoint: process.env.DYNAMO_ENDPOINT || 'http://127.0.1:8020',
       convertEmptyValues: true,
-      accessKeyId: 'foo',
-      secretAccessKey: 'bar',
+      credentials: {
+        accessKeyId: 'foo',
+        secretAccessKey: 'bar',
+      },
     };
     if (this.branch !== 'local') {
       delete dbParams.endpoint;
       delete dbParams.region;
-      delete dbParams.accessKeyId;
-      delete dbParams.secretAccessKey;
+      delete dbParams.credentials.accessKeyId;
+      delete dbParams.credentials.secretAccessKey;
     }
     return dbParams;
   }
