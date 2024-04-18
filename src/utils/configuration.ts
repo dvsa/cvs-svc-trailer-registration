@@ -40,8 +40,7 @@ export class Configurations {
     if (this.branch !== 'local') {
       delete dbParams.endpoint;
       delete dbParams.region;
-      delete dbParams.credentials.accessKeyId;
-      delete dbParams.credentials.secretAccessKey;
+      delete dbParams.credentials;
     }
     return dbParams;
   }
