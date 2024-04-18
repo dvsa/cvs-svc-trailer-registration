@@ -12,6 +12,8 @@ export class InsertTrailerRegistration extends TrailerRegistrationBase {
   }
 
   public async call(req: Request, res: Response, next: NextFunction): Promise<void> {
+    console.log('request body', req.body);
+    log.info('request body', req.body);
     const trailerRegistration = req.body as domain.TrailerRegistration;
     const errors = this.validate(trailerRegistration);
     if (errors) {
