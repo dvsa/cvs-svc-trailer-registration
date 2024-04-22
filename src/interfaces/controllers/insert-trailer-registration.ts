@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Request, Response, NextFunction } from 'express';
 import * as domain from '../../domain';
 import { insertValidator } from '../validators/insert-trailer-validator';
@@ -12,6 +13,11 @@ export class InsertTrailerRegistration extends TrailerRegistrationBase {
   }
 
   public async call(req: Request, res: Response, next: NextFunction): Promise<void> {
+    let requestBody = req.body;
+    if (Buffer.isBuffer(requestBody)) {
+      log.debug('request body', requestBody);
+      requestBody = JSON.parse(Buffer.from(requestBody).toString());
+    }
     const trailerRegistration = req.body as domain.TrailerRegistration;
     const errors = this.validate(trailerRegistration);
     if (errors) {

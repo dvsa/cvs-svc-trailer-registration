@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Request, Response, NextFunction } from 'express';
 import * as domain from '../../domain';
@@ -13,8 +15,12 @@ export class DeregisterTrailer extends TrailerRegistrationBase {
   }
 
   public async call(req: Request, res: Response, next: NextFunction): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const deregisterTrailer = req.body as domain.DeregisterTrailerRequest;
+    let requestBody = req.body;
+    if (Buffer.isBuffer(requestBody)) {
+      log.debug(requestBody);
+      requestBody = JSON.parse(Buffer.from(requestBody).toString());
+    }
+    const deregisterTrailer = requestBody as domain.DeregisterTrailerRequest;
     const { trn } = req.params;
 
     const errors = this.validate(deregisterTrailer);
