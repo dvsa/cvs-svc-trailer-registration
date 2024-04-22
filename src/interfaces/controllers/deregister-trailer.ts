@@ -15,14 +15,7 @@ export class DeregisterTrailer extends TrailerRegistrationBase {
   }
 
   public async call(req: Request, res: Response, next: NextFunction): Promise<void> {
-    let requestBody = req.body;
-    // TODO: remove log
-    log.debug(requestBody);
-    if (Buffer.isBuffer(requestBody)) {
-      requestBody = JSON.parse(Buffer.from(requestBody).toString());
-      log.debug(requestBody);
-    }
-    const deregisterTrailer = requestBody as domain.DeregisterTrailerRequest;
+    const deregisterTrailer = req.body as domain.DeregisterTrailerRequest;
     const { trn } = req.params;
 
     const errors = this.validate(deregisterTrailer);

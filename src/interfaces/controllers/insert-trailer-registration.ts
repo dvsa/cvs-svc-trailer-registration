@@ -13,13 +13,6 @@ export class InsertTrailerRegistration extends TrailerRegistrationBase {
   }
 
   public async call(req: Request, res: Response, next: NextFunction): Promise<void> {
-    let requestBody = req.body;
-    // TODO: remove log
-    log.debug('request body', requestBody);
-    if (Buffer.isBuffer(requestBody)) {
-      requestBody = JSON.parse(Buffer.from(requestBody).toString());
-      log.debug('request body', requestBody);
-    }
     const trailerRegistration = req.body as domain.TrailerRegistration;
     const errors = this.validate(trailerRegistration);
     if (errors) {
