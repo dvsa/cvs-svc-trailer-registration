@@ -54,7 +54,7 @@
     "dotenv": "16.3.1",
     "express": "4.19.2",
     "jest-express": "1.12.0",
-    "joi": "17.9.2",
+    "joi": "17.13.1",
     "serverless-http": "3.2.0",
     "source-map-support": "0.5.21"
   },
