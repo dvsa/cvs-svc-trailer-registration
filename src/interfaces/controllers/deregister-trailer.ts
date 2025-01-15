@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Request, Response, NextFunction } from 'express';
 import * as domain from '../../domain';
 import { log } from '../../utils/logger';
@@ -13,7 +12,6 @@ export class DeregisterTrailer extends TrailerRegistrationBase {
   }
 
   public async call(req: Request, res: Response, next: NextFunction): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const deregisterTrailer = req.body as domain.DeregisterTrailerRequest;
     const { trn } = req.params;
 

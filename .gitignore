@@ -41,3 +41,6 @@ reports
 
 # Dynamo
 .dynamodb
+
+.env.local
+.vscode
