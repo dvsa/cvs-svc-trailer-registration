@@ -48,6 +48,7 @@ functions:
   #   handler: src/handler.getHello
   #   events:
   #     - http: 'GET /hello'
+
 custom:
   dynamodb:
       stages:
@@ -61,7 +62,7 @@ custom:
         dev:
           sources:
             - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
-              sources: [./tests/resources/trailer-.json]
+              sources: [./tests/resources/trailer-registration.json]
   # dotenv:
   #   basePath: './config/'
   webpack:
