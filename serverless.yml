@@ -28,8 +28,8 @@ provider:
   apiGateway:
     # https://www.serverless.com/framework/docs/deprecations/#LOAD_VARIABLES_FROM_ENV_FILES
     shouldStartNameWithService: true
-  stage: ${env:AWS_PROVIDER_STAGE, 'local'}
-  region: ${env:AWS_PROVIDER_REGION, 'eu-west-2'}
+  stage: ${env:AWS_PROVIDER_STAGE, 'dev'}
+  region: ${env:AWS_PROVIDER_REGION, 'eu-west-1'}
   environment:
     SERVICE: trailers
 
@@ -81,7 +81,7 @@ resources:
     TrailerRegistration:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: cvs-local-trailer-registration
+        TableName:  cvs-${self:provider.environment.BRANCH}-trailer-registration
         AttributeDefinitions:
           - AttributeName: vinOrChassisWithMake
             AttributeType: S
