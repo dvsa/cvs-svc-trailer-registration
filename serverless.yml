@@ -24,14 +24,15 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs18.x
-  apiGateway:
-    # https://www.serverless.com/framework/docs/deprecations/#LOAD_VARIABLES_FROM_ENV_FILES
-    shouldStartNameWithService: true
-  stage: ${env:AWS_PROVIDER_STAGE, 'dev'}
-  region: ${env:AWS_PROVIDER_REGION, 'eu-west-1'}
+  runtime: nodejs22.x
+  stage: dev
+  timeout: 60
+  region: eu-west-1
   environment:
-    SERVICE: trailers
+    BRANCH: local
+    DDB_OFFLINE_ENDPOINT: http://localhost:8000
+    AWS_ACCESS_KEY_ID: accessKeyId
+    AWS_SECRET_ACCESS_KEY: secretAccessKey
 
 functions:
   # Use express routing so we don't rely on APIG and leverage express API
