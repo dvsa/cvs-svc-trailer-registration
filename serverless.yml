@@ -115,3 +115,22 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+    seed:
+      dev:
+        sources:
+          - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
+            sources: [./tests/resources/trailer-.json]
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-dynamodb
+  - serverless-offline
