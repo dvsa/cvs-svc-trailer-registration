@@ -115,6 +115,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+          
 custom:
   dynamodb:
     stages:
