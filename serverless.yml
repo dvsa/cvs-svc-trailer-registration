@@ -24,7 +24,7 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs22.x
+  runtime: nodejs18.x
   stage: dev
   timeout: 60
   region: eu-west-1
