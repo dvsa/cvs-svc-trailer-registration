@@ -48,6 +48,19 @@ functions:
   #   events:
   #     - http: 'GET /hello'
 custom:
+  dynamodb:
+      stages:
+        - dev
+      start:
+        port: 8000
+        inMemory: true
+        migrate: true
+        seed: true
+      seed:
+        dev:
+          sources:
+            - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
+              sources: [./tests/resources/trailer-.json]
   # dotenv:
   #   basePath: './config/'
   webpack:
@@ -61,23 +74,6 @@ custom:
   serverless-offline:
     httpPort: 3020
     lambdaPort: 3021
-  serverless-dynamodb:
-    start:
-      port: 8020
-      inMemory: true
-      migrate: true
-      seed: true
-      noStart: false
-      host: 127.0.0.1
-    seed:
-      trailer-registration:
-        sources:
-          - table: cvs-local-trailer-registration
-            sources: [./tests/resources/trailer-registration.json]
-    stages:
-      - local
-      - dev
-      - test
 
 resources:
   Resources:
@@ -115,23 +111,3 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-          
-custom:
-  dynamodb:
-    stages:
-      - dev
-    start:
-      port: 8000
-      inMemory: true
-      migrate: true
-      seed: true
-    seed:
-      dev:
-        sources:
-          - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
-            sources: [./tests/resources/trailer-.json]
-
-plugins:
-  - serverless-dotenv-plugin
-  - serverless-dynamodb
-  - serverless-offline
