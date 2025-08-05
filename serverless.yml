@@ -25,10 +25,9 @@ plugins:
 provider:
   name: aws
   runtime: nodejs18.x
-  stage: dev
-  region: eu-west-1
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, '${self:custom.defaultRegion}'}
   apiGateway:
-    # https://www.serverless.com/framework/docs/deprecations/#LOAD_VARIABLES_FROM_ENV_FILES
     shouldStartNameWithService: true
   environment:
     BRANCH: local
@@ -51,6 +50,8 @@ functions:
   #     - http: 'GET /hello'
 
 custom:
+  defaultRegion: ${self:custom.offlineRegion, 'eu-west-1'}
+  offlineRegion: ${opt:region, 'eu-west-2'}
   # dotenv:
   #   basePath: './config/'
   webpack:
