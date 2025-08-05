@@ -25,12 +25,12 @@ plugins:
 provider:
   name: aws
   runtime: nodejs18.x
-  stage: dev
+  stage: develop
   timeout: 60
   region: eu-west-1
   environment:
     BRANCH: local
-    DDB_OFFLINE_ENDPOINT: http://localhost:8000
+    DDB_OFFLINE_ENDPOINT: http://localhost:127.0.0.1
     AWS_ACCESS_KEY_ID: accessKeyId
     AWS_SECRET_ACCESS_KEY: secretAccessKey
 
@@ -53,9 +53,9 @@ functions:
 custom:
   dynamodb:
       stages:
-        - dev
+        - develop
       start:
-        port: 8000
+        port: 127.0.0.1
         inMemory: true
         migrate: true
         seed: true
