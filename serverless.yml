@@ -33,7 +33,6 @@ provider:
     shouldStartNameWithService: true
   environment:
     BRANCH: local
-    DDB_OFFLINE_ENDPOINT: http://localhost:8000
     AWS_ACCESS_KEY_ID: accessKeyId
     AWS_SECRET_ACCESS_KEY: secretAccessKey
     SERVICE: trailers
