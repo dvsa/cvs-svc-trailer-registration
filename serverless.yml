@@ -72,16 +72,12 @@ custom:
         inMemory: true
         migrate: true
         seed: true
-        host: 127.0.0.1
+        host: 127.0.1:8020
       seed:
         dev:
           sources:
             - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
               sources: [./tests/resources/trailer-registration.json]
-        trailer-registration:
-          sources:
-            - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
-              sources: [ ./tests/resources/trailer-registration.json ]
 
 
 resources:
