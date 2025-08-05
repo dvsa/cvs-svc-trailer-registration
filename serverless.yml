@@ -72,7 +72,7 @@ custom:
     seed:
       trailer-registration:
         sources:
-          - table: cvs-local-trailer-registration
+          - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
             sources: [./tests/resources/trailer-registration.json]
     stages:
       - local
@@ -84,7 +84,7 @@ resources:
     TrailerRegistration:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: cvs-local-trailer-registration
+        TableName: cvs-${self:provider.environment.BRANCH}-trailer-registration
         AttributeDefinitions:
           - AttributeName: vinOrChassisWithMake
             AttributeType: S
