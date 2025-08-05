@@ -33,6 +33,7 @@ provider:
     DDB_OFFLINE_ENDPOINT: http://localhost:8000
     AWS_ACCESS_KEY_ID: accessKeyId
     AWS_SECRET_ACCESS_KEY: secretAccessKey
+    SERVICE: trailers
 
 functions:
   # Use express routing so we don't rely on APIG and leverage express API
