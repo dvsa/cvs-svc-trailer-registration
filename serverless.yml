@@ -25,7 +25,6 @@ plugins:
 provider:
   name: aws
   runtime: nodejs18.x
-  timeout: 60
   stage: ${env:AWS_PROVIDER_STAGE, 'dev'}
   region: ${env:AWS_PROVIDER_REGION, 'eu-west-1'}
   apiGateway:
@@ -54,7 +53,7 @@ functions:
 custom:
   dynamodb:
       stages:
-        - dev
+        - ${env:AWS_PROVIDER_STAGE, 'dev'}
       start:
         port: 8000
         inMemory: true
