@@ -68,11 +68,11 @@ custom:
       stages:
         - dev
       start:
-        port: 8000
+        port: 8020
         inMemory: true
         migrate: true
         seed: true
-        host: 127.0.1:8020
+        host: 127.0.1
       seed:
         dev:
           sources:
