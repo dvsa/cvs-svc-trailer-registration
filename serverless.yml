@@ -25,7 +25,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs18.x
-  stage: ${opt:stage, 'dev'}
+  stage: ${env:AWS_PROVIDER_STAGE, 'dev'}
   region: ${opt:region, '${self:custom.defaultRegion}'}
   apiGateway:
     shouldStartNameWithService: true
@@ -68,6 +68,7 @@ custom:
   dynamodb:
       stages:
         - dev
+        - local
       start:
         port: 8020
         inMemory: true
@@ -78,10 +79,6 @@ custom:
         dev:
           sources:
             - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
-              sources: [./tests/resources/trailer-registration.json]
-        trailer-registration:
-          sources:
-            - table: cvs-local-trailer-registration
               sources: [./tests/resources/trailer-registration.json]
 resources:
   Resources:
