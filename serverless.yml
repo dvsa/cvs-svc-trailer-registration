@@ -25,14 +25,13 @@ plugins:
 provider:
   name: aws
   runtime: nodejs18.x
-  stage: develop
-  timeout: 60
-  region: eu-west-1
+  stage: ${env:AWS_PROVIDER_STAGE, 'dev'}
+  region: ${opt:region, '${self:custom.defaultRegion}'}
+  apiGateway:
+    shouldStartNameWithService: true
   environment:
     BRANCH: local
-    DDB_OFFLINE_ENDPOINT: http://localhost:127.0.0.1
-    AWS_ACCESS_KEY_ID: accessKeyId
-    AWS_SECRET_ACCESS_KEY: secretAccessKey
+    SERVICE: trailers
 
 functions:
   # Use express routing so we don't rely on APIG and leverage express API
@@ -51,19 +50,8 @@ functions:
   #     - http: 'GET /hello'
 
 custom:
-  dynamodb:
-      stages:
-        - develop
-      start:
-        port: 127.0.0.1
-        inMemory: true
-        migrate: true
-        seed: true
-      seed:
-        dev:
-          sources:
-            - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
-              sources: [./tests/resources/trailer-registration.json]
+  defaultRegion: ${self:custom.offlineRegion, 'eu-west-1'}
+  offlineRegion: ${opt:region, 'eu-west-2'}
   # dotenv:
   #   basePath: './config/'
   webpack:
@@ -77,7 +65,22 @@ custom:
   serverless-offline:
     httpPort: 3020
     lambdaPort: 3021
-
+  dynamodb:
+      stages:
+        - dev
+        - local
+      start:
+        port: 8020
+        inMemory: true
+        migrate: true
+        seed: true
+        host: 127.0.1
+      seed:
+        dev:
+          sources:
+            - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
+              sources: [./tests/resources/trailer-registration.json]
+              
 resources:
   Resources:
     TrailerRegistration:
