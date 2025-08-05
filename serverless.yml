@@ -20,6 +20,7 @@ plugins:
   - serverless-dynamodb
   # https://github.com/serverless-heaven/serverless-webpack#usage-with-serverless-offline
   - serverless-offline
+  - serverless-dotenv-plugin
 
 provider:
   name: aws
