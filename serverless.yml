@@ -33,8 +33,6 @@ provider:
     shouldStartNameWithService: true
   environment:
     BRANCH: local
-    AWS_ACCESS_KEY_ID: accessKeyId
-    AWS_SECRET_ACCESS_KEY: secretAccessKey
     SERVICE: trailers
 
 functions:
