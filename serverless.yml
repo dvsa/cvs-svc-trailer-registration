@@ -25,8 +25,8 @@ plugins:
 provider:
   name: aws
   runtime: nodejs18.x
-  stage: ${env:AWS_PROVIDER_STAGE, 'dev'}
-  region: ${env:AWS_PROVIDER_REGION, 'eu-west-1'}
+  stage: dev
+  region: eu-west-1
   apiGateway:
     # https://www.serverless.com/framework/docs/deprecations/#LOAD_VARIABLES_FROM_ENV_FILES
     shouldStartNameWithService: true
@@ -53,12 +53,13 @@ functions:
 custom:
   dynamodb:
       stages:
-        - ${env:AWS_PROVIDER_STAGE, 'dev'}
+        - dev
       start:
         port: 8000
         inMemory: true
         migrate: true
         seed: true
+        host: 127.0.0.1
       seed:
         dev:
           sources:
