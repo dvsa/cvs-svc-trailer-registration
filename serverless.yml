@@ -25,7 +25,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs18.x
-  stage: develop
+  stage: dev
   region: eu-west-1
   apiGateway:
     shouldStartNameWithService: true
