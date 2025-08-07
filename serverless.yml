@@ -41,6 +41,7 @@ functions:
       - http: ANY /
       # We will proxy version from here in the client to match the API specs e.g. <stage>/**/*/<service>
       - http: 'ANY /{proxy+}'
+      - http: 'ANY /local/{proxy+}'
   # Can also define specific functions on exposed routes using pattern matching, see below as example:
   # handler.ts containing exported getHello function is exposed on path /hello
   # that you can test locally sls invoke local -f getHello -d '{"path": "hello"}' or with sls offline
