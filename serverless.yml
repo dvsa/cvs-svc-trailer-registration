@@ -1,31 +1,84 @@
+# https://github.com/serverless/serverless/blob/master/docs/providers/aws/guide/functions.md
 service: cvs-svc-trailer-registration
+useDotenv: true
+# Create an optimized package for our Functions
+# This file has 2 purposes:
+# - used to mock API Gateway so that we can work locally (with serverless-offline)
+# - use webpack to bundle our code
+package:
+  individually: true
+  exclude:
+    - node_modules/**
+    - .build/**
+  include:
+    - src/handler.ts
+
+plugins:
+  # - serverless-dotenv-plugin
+  # https://github.com/serverless-heaven/serverless-webpack/tree/master/examples
+  - serverless-webpack
+  - serverless-dynamodb
+  # https://github.com/serverless-heaven/serverless-webpack#usage-with-serverless-offline
+  - serverless-offline
+  - serverless-dotenv-plugin
 
 provider:
   name: aws
   runtime: nodejs18.x
   stage: dev
-  timeout: 60
   region: eu-west-1
+  apiGateway:
+    shouldStartNameWithService: true
   environment:
     BRANCH: local
-    DDB_OFFLINE_ENDPOINT: http://localhost:8000
-    AWS_ACCESS_KEY_ID: accessKeyId
-    AWS_SECRET_ACCESS_KEY: secretAccessKey
+    SERVICE: trailers
 
+functions:
+  # Use express routing so we don't rely on APIG and leverage express API
+  app:
+    handler: src/handler.handler
+    events:
+      - http: ANY /
+      # We will proxy version from here in the client to match the API specs e.g. <stage>/**/*/<service>
+      - http: 'ANY /{proxy+}'
+  # Can also define specific functions on exposed routes using pattern matching, see below as example:
+  # handler.ts containing exported getHello function is exposed on path /hello
+  # that you can test locally sls invoke local -f getHello -d '{"path": "hello"}' or with sls offline
+  # getHello:
+  #   handler: src/handler.getHello
+  #   events:
+  #     - http: 'GET /hello'
 custom:
-  dynamodb:
-    stages:
-      - dev
+  # dotenv:
+  #   basePath: './config/'
+  webpack:
+    webpackConfig: './scripts/webpack.config.js'
+    keepOutputDirectory: false
+    # can be toggled depending on env and .env files configuration
+    includeModules: true # Node modules configuration for packaging, TBC whether we need the node_modules or 'inject' them when hosted on S3
+    packager: 'npm' # Packager that will be used to package your external modules
+    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
+  # https://www.serverless.com/plugins/serverless-offline#usage-with-webpack - See Usage and command line options
+  serverless-offline:
+    httpPort: 3020
+    lambdaPort: 3021
+  serverless-dynamodb:
     start:
-      port: 8000
+      port: 8020
       inMemory: true
       migrate: true
       seed: true
+      noStart: false
+      host: 127.0.0.1
     seed:
-      dev:
+      trailer-registration:
         sources:
           - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
             sources: [./tests/resources/trailer-registration.json]
+    stages:
+      - local
+      - dev
+      - test
 
 resources:
   Resources:
@@ -63,8 +116,3 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-
-plugins:
-  - serverless-dotenv-plugin
-  - serverless-dynamodb
-  - serverless-offline
