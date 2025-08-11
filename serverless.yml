@@ -30,7 +30,7 @@ provider:
   apiGateway:
     shouldStartNameWithService: true
   environment:
-    BRANCH: local
+    BRANCH: dev
     SERVICE: trailers
 
 functions:
