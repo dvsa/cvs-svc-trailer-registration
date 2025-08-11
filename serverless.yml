@@ -79,6 +79,7 @@ custom:
           - table: cvs-local-trailer-registration
             sources: [./tests/resources/trailer-registration.json ]
     stages:
+      - dev
       - local
   dynamodb:
       stages:
