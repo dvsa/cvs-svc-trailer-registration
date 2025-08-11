@@ -26,7 +26,7 @@ provider:
   name: aws
   runtime: nodejs18.x
   stage: dev
-  region: ${opt:region, '${self:custom.defaultRegion}'}
+  region: eu-west-2
   apiGateway:
     shouldStartNameWithService: true
   environment:
@@ -50,8 +50,6 @@ functions:
   #     - http: 'GET /hello'
 
 custom:
-  defaultRegion: ${self:custom.offlineRegion, 'eu-west-1'}
-  offlineRegion: ${opt:region, 'eu-west-2'}
   # dotenv:
   #   basePath: './config/'
   webpack:

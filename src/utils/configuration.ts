@@ -24,7 +24,6 @@ export class Configurations {
   }
 
   get dynamoTableName(): string {
-    console.log(`branch name was: ${this.branch}`);
     return `cvs-${this.branch}-trailer-registration`;
   }
 
