@@ -67,7 +67,6 @@ custom:
     stages:
       - dev
       - local
-      - test
     start:
       port: 8020
       inMemory: true
