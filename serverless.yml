@@ -81,13 +81,9 @@ custom:
           sources:
             - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
               sources: [./tests/resources/trailer-registration.json]
-        local:
+        trailer-registration:
           sources:
-            - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
-              sources: [ ./tests/resources/trailer-registration.json ]
-        test:
-          sources:
-            - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
+            - table: cvs-local-trailer-registration
               sources: [ ./tests/resources/trailer-registration.json ]
 resources:
   Resources:
