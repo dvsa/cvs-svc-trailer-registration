@@ -76,6 +76,7 @@ custom:
         migrate: true
         seed: true
         host: 127.0.1
+        noStart: false
       seed:
         dev:
           sources:
