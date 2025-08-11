@@ -41,7 +41,6 @@ functions:
       - http: ANY /
       # We will proxy version from here in the client to match the API specs e.g. <stage>/**/*/<service>
       - http: 'ANY /{proxy+}'
-      - http: 'ANY /local/{proxy+}'
   # Can also define specific functions on exposed routes using pattern matching, see below as example:
   # handler.ts containing exported getHello function is exposed on path /hello
   # that you can test locally sls invoke local -f getHello -d '{"path": "hello"}' or with sls offline
@@ -49,6 +48,7 @@ functions:
   #   handler: src/handler.getHello
   #   events:
   #     - http: 'GET /hello'
+
 custom:
   # dotenv:
   #   basePath: './config/'
@@ -63,30 +63,27 @@ custom:
   serverless-offline:
     httpPort: 3020
     lambdaPort: 3021
-  serverless-dynamodb:
+  dynamodb:
+    stages:
+      - dev
+      - local
     start:
       port: 8020
       inMemory: true
       migrate: true
       seed: true
-      noStart: false
-      host: 127.0.0.1
+      host: 127.0.1
     seed:
-      trailer-registration:
+      dev:
         sources:
           - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
             sources: [./tests/resources/trailer-registration.json]
-    stages:
-      - local
-      - dev
-      - test
-
 resources:
   Resources:
     TrailerRegistration:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: cvs-${self:provider.environment.BRANCH}-trailer-registration
+        TableName:  cvs-${self:provider.environment.BRANCH}-trailer-registration
         AttributeDefinitions:
           - AttributeName: vinOrChassisWithMake
             AttributeType: S
