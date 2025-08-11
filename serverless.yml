@@ -69,6 +69,7 @@ custom:
       stages:
         - dev
         - local
+        - test
       start:
         port: 8020
         inMemory: true
@@ -80,6 +81,14 @@ custom:
           sources:
             - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
               sources: [./tests/resources/trailer-registration.json]
+        local:
+          sources:
+            - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
+              sources: [ ./tests/resources/trailer-registration.json ]
+        test:
+          sources:
+            - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
+              sources: [ ./tests/resources/trailer-registration.json ]
 resources:
   Resources:
     TrailerRegistration:
