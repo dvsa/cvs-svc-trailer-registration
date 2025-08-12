@@ -3,7 +3,7 @@ import { emptyDatabase, populateDatabase } from '../utils/dbUtil';
 import * as domain from '../../src/domain';
 import * as trailerRegistrations from '../resources/trailer-registration.json';
 
-const url = 'http://localhost:3020/local';
+const url = 'http://localhost:3020/dev';
 const request = supertest(url);
 const commonInsertPayload = {
   make: 'Some Industries',
