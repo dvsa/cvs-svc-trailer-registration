@@ -20,16 +20,17 @@ plugins:
   - serverless-dynamodb
   # https://github.com/serverless-heaven/serverless-webpack#usage-with-serverless-offline
   - serverless-offline
+  - serverless-dotenv-plugin
 
 provider:
   name: aws
   runtime: nodejs18.x
+  stage: dev
+  region: eu-west-1
   apiGateway:
-    # https://www.serverless.com/framework/docs/deprecations/#LOAD_VARIABLES_FROM_ENV_FILES
     shouldStartNameWithService: true
-  stage: ${env:AWS_PROVIDER_STAGE, 'local'}
-  region: ${env:AWS_PROVIDER_REGION, 'eu-west-2'}
   environment:
+    BRANCH: local
     SERVICE: trailers
 
 functions:
@@ -47,6 +48,7 @@ functions:
   #   handler: src/handler.getHello
   #   events:
   #     - http: 'GET /hello'
+
 custom:
   # dotenv:
   #   basePath: './config/'
@@ -61,30 +63,27 @@ custom:
   serverless-offline:
     httpPort: 3020
     lambdaPort: 3021
-  serverless-dynamodb:
+  dynamodb:
+    stages:
+      - dev
+      - local
     start:
       port: 8020
       inMemory: true
       migrate: true
       seed: true
-      noStart: false
-      host: 127.0.0.1
+      host: 127.0.1
     seed:
-      trailer-registration:
+      dev:
         sources:
-          - table: cvs-local-trailer-registration
+          - table: cvs-${self:provider.environment.BRANCH}-trailer-registration
             sources: [./tests/resources/trailer-registration.json]
-    stages:
-      - local
-      - dev
-      - test
-
 resources:
   Resources:
     TrailerRegistration:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: cvs-local-trailer-registration
+        TableName:  cvs-${self:provider.environment.BRANCH}-trailer-registration
         AttributeDefinitions:
           - AttributeName: vinOrChassisWithMake
             AttributeType: S
